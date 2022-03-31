@@ -160,8 +160,33 @@ class="article article-type-post"
     <div class="article-entry post-inner-html">
         
         <h2 id="从零开始使用Hexo搭建个人博客"><a href="#从零开始使用Hexo搭建个人博客" class="headerlink" title="从零开始使用Hexo搭建个人博客"></a>从零开始使用Hexo搭建个人博客</h2><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>提前先安装node，node中包含npm工具</p>
-<p><code>npm install hexo-cli -g</code></p>
-<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><h3 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h3><h3 id="写博客推荐的工具与问题"><a href="#写博客推荐的工具与问题" class="headerlink" title="写博客推荐的工具与问题"></a>写博客推荐的工具与问题</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-cli -g</code></pre>
+
+<p>安装完hexo-cli工具后，就可以开始创建博客了</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo init ahern88_github_io
+$ <span class="token builtin class-name">cd</span> ahern88_github_io
+$ <span class="token function">npm</span> <span class="token function">install</span></code></pre>
+
+<p>到这里博客已经初始化好，可以启动查看demo页面了，先要在本地启动hexo的server</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo server
+INFO  Validating config
+INFO  Start processing
+INFO  Hexo is running at http://localhost:4000/ <span class="token builtin class-name">.</span> Press Ctrl+C to stop.</code></pre>
+
+<p>在浏览器中打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> 就能看到默认页面了，不过可能你也发现了默认页面的主题样式并不是你喜欢的，下面我们看如何更换和安装主题。</p>
+<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>hexo内置了默认的主题，如果想更换主题，首先点击这里查看<a target="_blank" rel="noopener" href="https://hexo.io/themes/">所有主题</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ahern88_github_io/themes</code></pre>
+
+
+
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>TODO</p>
+<h3 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h3><p>TODO</p>
+<h3 id="写博客推荐的工具与问题"><a href="#写博客推荐的工具与问题" class="headerlink" title="写博客推荐的工具与问题"></a>写博客推荐的工具与问题</h3><p>TODO</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>Hexo官方网站 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a></li>
+<li>Giscus官方站点 <a target="_blank" rel="noopener" href="https://giscus.app/zh-CN">https://giscus.app/zh-CN</a></li>
+</ul>
+
         
     </div>
     </div>
