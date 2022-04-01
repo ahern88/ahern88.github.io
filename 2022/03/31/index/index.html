@@ -155,7 +155,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-cl1gj7pjg0001o8ww54196m3o" class="article article-type-post" itemscope
+    <article id="post-cl1gjurjn00011rwwdp03as9j" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -259,7 +259,7 @@ INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token pun
 INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token punctuation">]</span> Indexing chunk <span class="token number">1</span> of <span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">3</span> records<span class="token punctuation">)</span>
 INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token punctuation">]</span> Indexing done.</code></pre>
 
-<p>这样搜索功能就安装好了~</p>
+<p>这样搜索功能就安装好了~<img src="/images/index/image-20220401224102914.png" alt="image-20220401224102914"></p>
 <h3 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h3><p>评论功能采用<a target="_blank" rel="noopener" href="https://giscus.app/">giscus</a>，这是一个天才项目，数据源存储在github（什么鬼），对github里针对项目有一个discussions的功能，giscus完全基于它来实现。</p>
 <p>首先我们要创建一个github空的项目</p>
 <p>然后开启discussions功能（进入工程的settings页面）<img src="/images/index/image-20220401215035374.png" alt="image-20220401215035374"></p>
@@ -280,13 +280,27 @@ INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token pun
   <span class="token key atrule">inputPosition</span><span class="token punctuation">:</span> <span class="token string">'top'</span></code></pre>
 
 <p>里面的参数如何获取？进入<a target="_blank" rel="noopener" href="https://giscus.app/zh-CN">giscus.app</a>站点，按照操作填写资料就能获取到参数</p>
-<p><img src="/images/index/image-20220401215641878.png" alt="image-20220401215641878"></p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://giscus.app/client.js"</span>
+        data<span class="token operator">-</span>repo<span class="token operator">=</span><span class="token string">"ahern88/giscus_repo"</span>
+        data<span class="token operator">-</span>repo<span class="token operator">-</span>id<span class="token operator">=</span><span class="token string">"R_kgDOHGTAUg"</span>
+        data<span class="token operator">-</span>category<span class="token operator">=</span><span class="token string">"Announcements"</span>
+        data<span class="token operator">-</span>category<span class="token operator">-</span>id<span class="token operator">=</span><span class="token string">"DIC_kwDOHGTAUs4COWxa"</span>
+        data<span class="token operator">-</span>mapping<span class="token operator">=</span><span class="token string">"pathname"</span>
+        data<span class="token operator">-</span>reactions<span class="token operator">-</span>enabled<span class="token operator">=</span><span class="token string">"1"</span>
+        data<span class="token operator">-</span>emit<span class="token operator">-</span>metadata<span class="token operator">=</span><span class="token string">"0"</span>
+        data<span class="token operator">-</span>input<span class="token operator">-</span>position<span class="token operator">=</span><span class="token string">"bottom"</span>
+        data<span class="token operator">-</span>theme<span class="token operator">=</span><span class="token string">"light"</span>
+        data<span class="token operator">-</span>lang<span class="token operator">=</span><span class="token string">"zh-CN"</span>
+        crossorigin<span class="token operator">=</span><span class="token string">"anonymous"</span>
+        async<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+
 <h3 id="统计分析"><a href="#统计分析" class="headerlink" title="统计分析"></a>统计分析</h3><p>使用<a target="_blank" rel="noopener" href="https://tongji.baidu.com/">百度统计</a>，能帮助你将站点做的更好，让你更了解站点的流量情况。</p>
 <p><code>第一步是创建站点</code><img src="/images/index/image-20220401211603347.png" alt="image-20220401211603347"></p>
 <p><code>获取网站对应的key</code><img src="/images/index/image-20220401212317028.png" alt="image-20220401212317028"></p>
 <p>修改blog根目录下的_config.yml信息，新增如下配置（前提是你使用的aomori主题）</p>
-<pre class="language-none"><code class="language-none"># 百度统计
-aomori_baidu_analytics: &#39;f6e09ac3389fb861bbfa7bbceb2a5698&#39;</code></pre>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 百度统计</span>
+<span class="token key atrule">aomori_baidu_analytics</span><span class="token punctuation">:</span> <span class="token string">'f6e09ac3389fb861bbfa7bbceb2a5698'</span></code></pre>
 
 <p>到这里，统计模块就已完成，上线后查看统计分析信息</p>
 <h3 id="写博客推荐的工具与问题"><a href="#写博客推荐的工具与问题" class="headerlink" title="写博客推荐的工具与问题"></a>写博客推荐的工具与问题</h3><p>如何方便的做图片维护与管理？</p>
