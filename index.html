@@ -155,11 +155,20 @@ class="article article-type-post"
 
     <div class="article-body">
     <header class="article-title">
-        <a href="/2022/03/31/index/">从零开始使用Hexo搭建个人博客</a>
+        <a href="/2022/03/31/index/">从零开始使用GitHub+Hexo搭建个人博客</a>
     </header>
     <div class="article-entry post-inner-html">
         
-        <h2 id="从零开始使用Hexo搭建个人博客"><a href="#从零开始使用Hexo搭建个人博客" class="headerlink" title="从零开始使用Hexo搭建个人博客"></a>从零开始使用Hexo搭建个人博客</h2><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>提前先安装node，node中包含npm工具</p>
+        <h2 id="从零开始使用GitHub-Hexo搭建个人博客"><a href="#从零开始使用GitHub-Hexo搭建个人博客" class="headerlink" title="从零开始使用GitHub+Hexo搭建个人博客"></a>从零开始使用GitHub+Hexo搭建个人博客</h2><p>通过本文你能完成自己的个人博客搭建（无需个人主机、个人域名，免费），你的博客将拥有如下功能</p>
+<ul>
+<li>分类功能</li>
+<li>标签功能</li>
+<li>搜索功能</li>
+<li>评论功能</li>
+<li>数据分析</li>
+<li>博文发布</li>
+</ul>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>提前先安装node，node中包含npm工具，具体安装node这里不做描述</p>
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-cli -g</code></pre>
 
 <p>安装完hexo-cli工具后，就可以开始创建博客了</p>
@@ -174,14 +183,134 @@ INFO  Start processing
 INFO  Hexo is running at http://localhost:4000/ <span class="token builtin class-name">.</span> Press Ctrl+C to stop.</code></pre>
 
 <p>在浏览器中打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> 就能看到默认页面了，不过可能你也发现了默认页面的主题样式并不是你喜欢的，下面我们看如何更换和安装主题。</p>
-<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>hexo内置了默认的主题，如果想更换主题，首先点击这里查看<a target="_blank" rel="noopener" href="https://hexo.io/themes/">所有主题</a></p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ahern88_github_io/themes</code></pre>
+<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>hexo内置了默认的主题，如果想更换主题，首先点击这里查看<a target="_blank" rel="noopener" href="https://hexo.io/themes/">所有主题</a>，找到所需主题的源代码或压缩包解压到themes下完成安装</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ahern88_github_io/themes
+$ <span class="token function">git</span> clone https://github.com/lh1me/hexo-theme-aomori.git</code></pre>
 
+<p>修改默认主题，修改根目录下<code>_config.yml</code>的theme配置</p>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Extensions</span>
+<span class="token comment">## Plugins: https://hexo.io/plugins/</span>
+<span class="token comment">## Themes: https://hexo.io/themes/</span>
+<span class="token key atrule">theme</span><span class="token punctuation">:</span> hexo<span class="token punctuation">-</span>theme<span class="token punctuation">-</span>aomori</code></pre>
 
+<p>完成主题安装后，通过<code>hexo server</code>重启服务查看效果</p>
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>搜索功能需要借助第三方商业公司algolia的search产品，数据量小搜索量不大个人项目够用，先上algolia注册个人账号</p>
+<p>注册完进入管理后台后，先创建application，然后新增search功能下的index</p>
+<p><img src="/images/index/image-20220401223625383.png" alt="image-20220401223625383"></p>
+<p><img src="/images/index/image-20220401223708602.png" alt="image-20220401223708602"></p>
+<p>在Settings中的Api Key功能模块，你能找到下面配置的相关参数<img src="/images/index/image-20220401223828657.png" alt="image-20220401223828657"></p>
+<p>在根目录下<code>_config.yml</code>配置文件下新增如下信息：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 搜索模块</span>
+algolia:
+  applicationID: <span class="token string">'J3Z2******'</span>
+  apiKey: <span class="token string">'4eaf4c93378e153e**************'</span>
+  indexName: <span class="token string">'post_index'</span>
+aomori_search_algolia: <span class="token boolean">true</span></code></pre>
 
-<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>TODO</p>
-<h3 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h3><p>TODO</p>
-<h3 id="写博客推荐的工具与问题"><a href="#写博客推荐的工具与问题" class="headerlink" title="写博客推荐的工具与问题"></a>写博客推荐的工具与问题</h3><p>TODO</p>
+<p>每次发布新博文后，都需要执行如下命令生成索引信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">HEXO_ALGOLIA_INDEXING_KEY</span><span class="token operator">=</span>4eaf4c93378e153e**************
+$ hexo algolia
+INFO  Validating config
+INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token punctuation">]</span> Testing HEXO_ALGOLIA_INDEXING_KEY permissions.
+INFO  Start processing
+INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token punctuation">]</span> <span class="token number">3</span> records to index <span class="token punctuation">(</span>post, page<span class="token punctuation">)</span>.
+INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token punctuation">]</span> Indexing chunk <span class="token number">1</span> of <span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">3</span> records<span class="token punctuation">)</span>
+INFO  <span class="token punctuation">[</span>hexo-algolia<span class="token punctuation">]</span> Indexing done.</code></pre>
+
+<p>这样搜索功能就安装好了~</p>
+<h3 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h3><p>评论功能采用<a target="_blank" rel="noopener" href="https://giscus.app/">giscus</a>，这是一个天才项目，数据源存储在github（什么鬼），对github里针对项目有一个discussions的功能，giscus完全基于它来实现。</p>
+<p>首先我们要创建一个github空的项目</p>
+<p>然后开启discussions功能（进入工程的settings页面）<img src="/images/index/image-20220401215035374.png" alt="image-20220401215035374"></p>
+<p>然后在github中安装giscus的app<img src="/images/index/image-20220401215133311.png" alt="image-20220401215133311"></p>
+<p>最后修改_config.yml的配置，完成giscus的配置</p>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 评论模块</span>
+<span class="token key atrule">aomori_giscus</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> <span class="token string">'ahern88/giscus_repo'</span>
+  <span class="token key atrule">repoId</span><span class="token punctuation">:</span> <span class="token string">'R_kgDOHGTAUg'</span>
+  <span class="token key atrule">category</span><span class="token punctuation">:</span> <span class="token string">'Announcements'</span>
+  <span class="token key atrule">categoryId</span><span class="token punctuation">:</span> <span class="token string">'DIC_kwDOHGTAUs4COWxa'</span>
+  <span class="token key atrule">mapping</span><span class="token punctuation">:</span> <span class="token string">"pathname"</span>
+  <span class="token key atrule">reactionsEnabled</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">emitMetadata</span><span class="token punctuation">:</span> <span class="token number">0</span>
+  <span class="token key atrule">theme</span><span class="token punctuation">:</span> <span class="token string">'light'</span>
+  <span class="token key atrule">lang</span><span class="token punctuation">:</span> <span class="token string">'zh-CN'</span>
+  <span class="token key atrule">inputPosition</span><span class="token punctuation">:</span> <span class="token string">'top'</span></code></pre>
+
+<p>里面的参数如何获取？进入<a target="_blank" rel="noopener" href="https://giscus.app/zh-CN">giscus.app</a>站点，按照操作填写资料就能获取到参数</p>
+<p><img src="/images/index/image-20220401215641878.png" alt="image-20220401215641878"></p>
+<h3 id="统计分析"><a href="#统计分析" class="headerlink" title="统计分析"></a>统计分析</h3><p>使用<a target="_blank" rel="noopener" href="https://tongji.baidu.com/">百度统计</a>，能帮助你将站点做的更好，让你更了解站点的流量情况。</p>
+<p><code>第一步是创建站点</code><img src="/images/index/image-20220401211603347.png" alt="image-20220401211603347"></p>
+<p><code>获取网站对应的key</code><img src="/images/index/image-20220401212317028.png" alt="image-20220401212317028"></p>
+<p>修改blog根目录下的_config.yml信息，新增如下配置（前提是你使用的aomori主题）</p>
+<pre class="language-none"><code class="language-none"># 百度统计
+aomori_baidu_analytics: &#39;f6e09ac3389fb861bbfa7bbceb2a5698&#39;</code></pre>
+
+<p>到这里，统计模块就已完成，上线后查看统计分析信息</p>
+<h3 id="写博客推荐的工具与问题"><a href="#写博客推荐的工具与问题" class="headerlink" title="写博客推荐的工具与问题"></a>写博客推荐的工具与问题</h3><p>如何方便的做图片维护与管理？</p>
+<p>有比较多的方式，比如使用Typora+iPic实现，但有一个风险，万一iPic服务器收费了或挂了，或许你的图片一去不复返了，最简单的方式是将图片存储在GitHub中，这样免费也省事，配合Typora工具目前真的是天衣无缝。</p>
+<p>先在blog工程source目录下创建images文件夹，如下：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ahern88_github_io/source
+$ <span class="token function">mkdir</span> images</code></pre>
+
+<p>配置Typora工具，将粘贴过来的图片自动上传到该目录下<img src="/images/index/image-20220401220730452.png" alt="image-20220401220730452"></p>
+<p><img src="/images/index/image-20220401220806426.png" alt="image-20220401220806426"></p>
+<p><img src="/images/index/image-20220401220917089.png" alt="image-20220401220917089"></p>
+<p>这样，直接从剪贴板粘贴过来的图片会自动生成到images文件夹中，而images文件夹会被hexo打包至web项目的根目录下，通过&#x2F;images&#x2F;xxx.png就能直接访问到，非常完美。</p>
+<h3 id="发布博文"><a href="#发布博文" class="headerlink" title="发布博文"></a>发布博文</h3><p>最好将博客的源文件存放在github上维护，这样每一步操作都有记录，而且数据不会丢，先在github中创建ahern88_github_io项目</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ahern88_github_io
+$ <span class="token function">git</span> init
+$ <span class="token function">git</span> remote <span class="token function">add</span> origin https://github.com/ahern88/ahern88_github_io.git
+$ <span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+$ <span class="token function">git</span> commit -m <span class="token string">'init blog'</span>
+$ <span class="token function">git</span> push -u origin main</code></pre>
+
+<p>创建文章</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ahern88_github_io
+$ hexo new post helloworld <span class="token comment">#这里会在source/_posts下创建helloworld.md文件，你的博文就写在该markdown中</span></code></pre>
+
+<p>创建网站的github工程ahern88.github.io，并做Pages设置<img src="/images/index/image-20220401222310232.png" alt="image-20220401222310232"></p>
+<p>web网站仓库设置完之后，要将hexo工程的deploy信息指向ahern88.github.io工程，修改_config.yml配置</p>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># Deployment</span>
+<span class="token comment">## Docs: https://hexo.io/docs/one-command-deployment</span>
+<span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> <span class="token string">'git'</span>
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> <span class="token string">'git@github.com:ahern88/ahern88.github.io.git'</span>
+  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master</code></pre>
+
+<p>确保当前客户端的ssh key在github中有配置，不然deploy会出错</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo clean <span class="token comment"># 清除数据等信息，防止内容发布不上去</span>
+INFO  Validating config
+INFO  Deleted database.
+$ hexo algolia <span class="token comment"># 更新搜索索引信息</span>
+$ hexo deploy
+INFO  Validating config
+INFO  Start processing
+INFO  Files loaded <span class="token keyword">in</span> <span class="token number">144</span> ms
+INFO  Generated: collection/index.html
+INFO  Generated: <span class="token number">2022</span>/03/31/index/index.html
+INFO  Generated: dist/custom.js
+INFO  Generated: assets/algolia/algoliasearch.js
+INFO  Generated: images/index/image-20220401005713496.png
+INFO  <span class="token number">50</span> files generated <span class="token keyword">in</span> <span class="token number">80</span> ms
+INFO  Deploying: <span class="token function">git</span>
+INFO  Clearing .deploy_git folder<span class="token punctuation">..</span>.
+INFO  Copying files from public folder<span class="token punctuation">..</span>.
+INFO  Copying files from extend dirs<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>master a8df122<span class="token punctuation">]</span> Site updated: <span class="token number">2022</span>-04-01 02:19:08
+ <span class="token number">4</span> files changed, <span class="token number">58</span> insertions<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">8</span> deletions<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+Enumerating objects: <span class="token number">23</span>, done.
+Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">23</span>/23<span class="token punctuation">)</span>, done.
+Delta compression using up to <span class="token number">4</span> threads
+Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">6</span>/6<span class="token punctuation">)</span>, done.
+Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">12</span>/12<span class="token punctuation">)</span>, <span class="token number">2.05</span> KiB <span class="token operator">|</span> <span class="token number">1.03</span> MiB/s, done.
+Total <span class="token number">12</span> <span class="token punctuation">(</span>delta <span class="token number">5</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>
+remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">5</span>/5<span class="token punctuation">)</span>, completed with <span class="token number">4</span> <span class="token builtin class-name">local</span> objects.
+To github.com:ahern88/ahern88.github.io.git
+   56ef0d2<span class="token punctuation">..</span>a8df122  HEAD -<span class="token operator">></span> master
+Branch <span class="token string">'master'</span> <span class="token builtin class-name">set</span> up to track remote branch <span class="token string">'master'</span> from <span class="token string">'git@github.com:ahern88/ahern88.github.io.git'</span><span class="token builtin class-name">.</span></code></pre>
+
+<p>这样你的博文就发布上去了，发布完成后会有2分钟左右的缓存，等过几分钟刷新查看效果。</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li>Hexo官方网站 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a></li>
 <li>Giscus官方站点 <a target="_blank" rel="noopener" href="https://giscus.app/zh-CN">https://giscus.app/zh-CN</a></li>
@@ -273,7 +402,7 @@ INFO  Hexo is running at http://localhost:4000/ <span class="token builtin class
       <ul>
         
           <li>
-            <a href="/2022/03/31/index/">从零开始使用Hexo搭建个人博客</a>
+            <a href="/2022/03/31/index/">从零开始使用GitHub+Hexo搭建个人博客</a>
           </li>
         
       </ul>
@@ -325,6 +454,17 @@ INFO  Hexo is running at http://localhost:4000/ <span class="token builtin class
 
 
 
+
+<!-- Baidu Analytics-->
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f6e09ac3389fb861bbfa7bbceb2a5698";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 
 
 </body>
