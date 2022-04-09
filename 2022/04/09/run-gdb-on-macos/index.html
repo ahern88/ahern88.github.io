@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>在MacOS上使用GDB调试C程序 | ahern88的技术小站</title>
+
+    <meta name="description" content="ahern88的技术小站">
+    <meta name="keywords" content="JAVA,架构,微服务,分布式,足球,C罗">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "在MacOS上使用GDB调试C程序 | ahern88的技术小站"  />
+    <meta property="og:description" content= "ahern88的技术小站" />
+    <meta property="og:url" content="https://ahern88.github.io/2022/04/09/run-gdb-on-macos/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="ahern88" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="ahern88的技术小站" />
+    <meta name="twitter:title" content="在MacOS上使用GDB调试C程序 | ahern88的技术小站"/>
+    <meta name="twitter:description" content="ahern88的技术小站"/>
+    <script type="application/ld+json">
+        {
+            "description": "ahern88的技术小站",
+            "author": { "@type": "Person", "name": "ahern88" },
+            "@type": "BlogPosting",
+            "url": "https://ahern88.github.io/2022/04/09/run-gdb-on-macos/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://ahern88.github.ioundefined"
+            },
+            "name": "ahern88"
+            },
+            "headline": "在MacOS上使用GDB调试C程序 | ahern88的技术小站",
+            "datePublished": "2022-04-09T01:47:03.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://ahern88.github.io/2022/04/09/run-gdb-on-macos/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+    <meta property="algolia:search" data-application-id="J3Z27P68M3" data-api-key="4eaf4c93378e153e99394f6d0baecf21" data-index-name="post_index">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1646451311888.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1646451311888.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>ahern88的技术小站</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">文章</a>
+                
+                <a href="/aboutme">关于我</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">文章</a>
+                    
+                    <a href="/aboutme">关于我</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl1r829ls00031kww05988vth" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      在MacOS上使用GDB调试C程序
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-04-09T01:47:03.000Z" itemprop="datePublished">2022-04-09</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li></ul>
+            </div>
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="编写C程序"><a href="#编写C程序" class="headerlink" title="编写C程序"></a>编写C程序</h2><p>编写一段简单的C程序 main.c ，并做好验证</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"hello world\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>编译（保证机器上有装gcc，若没有装可以采用 brew install gcc 完成安装），并执行</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ gcc -g main.c -o main.o
+$ ./main.o
+hello world
+<span class="token number">1</span></code></pre>
+
+<h2 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h2><h3 id="先安装GDB"><a href="#先安装GDB" class="headerlink" title="先安装GDB"></a>先安装GDB</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ brew <span class="token function">install</span> gdb</code></pre>
+
+<p>完成安装后，执行gdb看是否输出正常</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ gdb
+GNU gdb <span class="token punctuation">(</span>GDB<span class="token punctuation">)</span> <span class="token number">11.2</span>
+Copyright <span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token number">2022</span> Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version <span class="token number">3</span> or later <span class="token operator">&lt;</span>http://gnu.org/licenses/gpl.html<span class="token operator">></span>
+This is <span class="token function">free</span> software: you are <span class="token function">free</span> to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type <span class="token string">"show copying"</span> and <span class="token string">"show warranty"</span> <span class="token keyword">for</span> details.
+This GDB was configured as <span class="token string">"x86_64-apple-darwin21.1.0"</span><span class="token builtin class-name">.</span>
+Type <span class="token string">"show configuration"</span> <span class="token keyword">for</span> configuration details.
+For bug reporting instructions, please see:
+<span class="token operator">&lt;</span>https://www.gnu.org/software/gdb/bugs/<span class="token operator">></span>.
+Find the GDB manual and other documentation resources online at:
+    <span class="token operator">&lt;</span>http://www.gnu.org/software/gdb/documentation/<span class="token operator">></span>.
+
+For help, <span class="token builtin class-name">type</span> <span class="token string">"help"</span><span class="token builtin class-name">.</span>
+Type <span class="token string">"apropos word"</span> to search <span class="token keyword">for</span> commands related to <span class="token string">"word"</span><span class="token builtin class-name">.</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> </code></pre>
+
+<h3 id="开始调试"><a href="#开始调试" class="headerlink" title="开始调试"></a>开始调试</h3><p>在c程序的目录下，执行如下命令进入gdb调试界面</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> gdb main.o
+GNU gdb <span class="token punctuation">(</span>GDB<span class="token punctuation">)</span> <span class="token number">11.2</span>
+Copyright <span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token number">2022</span> Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version <span class="token number">3</span> or later <span class="token operator">&lt;</span>http://gnu.org/licenses/gpl.html<span class="token operator">></span>
+This is <span class="token function">free</span> software: you are <span class="token function">free</span> to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type <span class="token string">"show copying"</span> and <span class="token string">"show warranty"</span> <span class="token keyword">for</span> details.
+This GDB was configured as <span class="token string">"x86_64-apple-darwin21.1.0"</span><span class="token builtin class-name">.</span>
+Type <span class="token string">"show configuration"</span> <span class="token keyword">for</span> configuration details.
+For bug reporting instructions, please see:
+<span class="token operator">&lt;</span>https://www.gnu.org/software/gdb/bugs/<span class="token operator">></span>.
+Find the GDB manual and other documentation resources online at:
+    <span class="token operator">&lt;</span>http://www.gnu.org/software/gdb/documentation/<span class="token operator">></span>.
+
+For help, <span class="token builtin class-name">type</span> <span class="token string">"help"</span><span class="token builtin class-name">.</span>
+Type <span class="token string">"apropos word"</span> to search <span class="token keyword">for</span> commands related to <span class="token string">"word"</span><span class="token punctuation">..</span>.
+Reading symbols from main.o<span class="token punctuation">..</span>.
+Reading symbols from /Users/ahern88/cCodes/main.o.dSYM/Contents/Resources/DWARF/main.o<span class="token punctuation">..</span>.
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> l <span class="token comment"># 通过 l 命令查看代码</span>
+<span class="token number">1</span>	<span class="token comment">#include &lt;stdio.h></span>
+<span class="token number">2</span>	
+<span class="token number">3</span>	
+<span class="token number">4</span>	int <span class="token function-name function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token number">5</span>	 int i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token number">6</span>	 printf<span class="token punctuation">(</span><span class="token string">"hello world<span class="token entity" title="\n">\n</span>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">7</span>	 i <span class="token operator">=</span> i + <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token number">8</span>	 printf<span class="token punctuation">(</span><span class="token string">"%d<span class="token entity" title="\n">\n</span>"</span>, i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">9</span>	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> layout src <span class="token comment"># 通过layout查看main.c的代码布局</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> b <span class="token number">5</span> <span class="token comment"># 在第5行代码插入断点，这样在layout模式下能看到 B+ 的状态，代表断点位置</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> run <span class="token comment"># 开始运行程序, 这里执行可以hang住，后面有解决办法</span>
+Starting program: /Users/ahern88/cCodes/main.o 
+<span class="token punctuation">[</span>New Thread 0x1603 of process <span class="token number">64447</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span>New Thread 0x1903 of process <span class="token number">64447</span><span class="token punctuation">]</span>
+warning: unhandled dyld version <span class="token punctuation">(</span><span class="token number">17</span><span class="token punctuation">)</span>
+
+Thread <span class="token number">2</span> hit Breakpoint <span class="token number">1</span>, main <span class="token punctuation">(</span><span class="token punctuation">)</span> at main.c:5
+<span class="token number">5</span>	 int i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> info <span class="token builtin class-name">break</span> <span class="token comment"># 查看当前断点的信息</span>
+Num     Type           Disp Enb Address            What
+<span class="token number">1</span>       breakpoint     keep y   0x0000000100003f48 <span class="token keyword">in</span> main at main.c:5
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> next <span class="token comment"># 单步执行</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> <span class="token builtin class-name">continue</span> <span class="token comment"># 执行到下一个break断点</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> print i <span class="token comment"># 输出当前栈中的变量i</span></code></pre>
+
+<p>上面能完成基本的调试操作，可以尝试着自己做一做</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>在使用gdb的过程中我遇到了几个问题</p>
+<p>1）run 操作后，提示Unable to find Mach task port for process-id</p>
+<p>解决办法：可能执行gdb命令的时候没有加sudo，加上sudo gdb就可以了</p>
+<p>2）run 操作后，命令行hang住不返回</p>
+<p>解决办法：在当前用户目录下新增 .gdbinit文件，并加入<code>set startup-with-shell off</code> </p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">touch</span> ~/.gdbinit
+$ <span class="token builtin class-name">echo</span> <span class="token string">"set startup-with-shell off"</span> <span class="token operator">></span> ~/.gdbinit</code></pre>
+
+<blockquote>
+<p>记住修改完 .gdbinit 文件后一定要关闭term窗口后重新打开，不然会没有效果</p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Homebrew/homebrew-core/issues/49631">(gdb) 8.3.1 hangs after run command on mac Catalina #49631</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/donaldsy/article/details/106739316">MacOS Catalina下使用gdb进行调试遇到的几个问题</a></p>
+</li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2022/04/05/git-in-depth-study/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">一文深入浅出学习Git工具</div>
+    </a>
+  
+</nav>
+
+
+    <!-- <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=在MacOS上使用GDB调试C程序 - ahern88的技术小站&url=https%3A%2F%2Fahern88.github.io%2F2022%2F04%2F09%2Frun-gdb-on-macos%2F">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=在MacOS上使用GDB调试C程序 - ahern88的技术小站&url=https://ahern88.github.io/2022/04/09/run-gdb-on-macos/&pic=">
+            <box-icon name='weibo' type='logo'></box-icon>
+        </a>
+    </section> -->
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments">
+    <div class="giscus"></div>
+</section>
+<script src="https://giscus.app/client.js"
+    data-repo="ahern88/giscus_repo"
+    data-repo-id="R_kgDOHGTAUg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOHGTAUs4COWxa"
+    data-input-position="top"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-theme="light"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <box-icon name='search' color="#3c4859"></box-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2022/04/09/run-gdb-on-macos/">在MacOS上使用GDB调试C程序</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/05/git-in-depth-study/">一文深入浅出学习Git工具</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/31/index/">从零开始使用GitHub+Hexo搭建个人博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            ahern88的技术小站 &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1646451311888.js"></script>
+
+
+<script src="/dist/custom.js?1646451311888.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Baidu Analytics-->
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f6e09ac3389fb861bbfa7bbceb2a5698";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</body>
+
+</html>
