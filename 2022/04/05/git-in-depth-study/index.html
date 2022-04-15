@@ -8,7 +8,16 @@
     
     <title>一文深入浅出学习Git工具 | ahern88的技术小站</title>
 
-    <meta name="description" content="ahern88的技术小站">
+    <meta name="description" content="&lt;blockquote&gt;
+&lt;p&gt;Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;Git和SVN&#34;&gt;&lt;a href=&#34;#Git和SVN&#34; class=&#34;headerlink&#34; title=&#34;Git和SVN&#34;&gt;&lt;/a&gt;Git和SVN&lt;/h2&gt;&lt;h2 id=&#34;Git安装&#34;&gt;&lt;a href=&#34;#Git安装&#34; class=&#34;headerlink&#34; title=&#34;Git安装&#34;&gt;&lt;/a&gt;Git安装&lt;/h2&gt;&lt;p&gt;git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。&lt;/p&gt;
+&lt;p&gt;mac安装git&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ brew &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;检查git是否安装完成&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; --version
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; version &lt;span class=&#34;token number&#34;&gt;2.32&lt;/span&gt;.0 &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;Apple Git-132&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;">
     <meta name="keywords" content="JAVA,架构,微服务,分布式,足球,C罗">
 
     
@@ -16,17 +25,53 @@
     <meta property="og:locale" content="cn" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content= "一文深入浅出学习Git工具 | ahern88的技术小站"  />
-    <meta property="og:description" content= "ahern88的技术小站" />
+    <meta property="og:description" content= "&lt;blockquote&gt;
+&lt;p&gt;Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;Git和SVN&#34;&gt;&lt;a href=&#34;#Git和SVN&#34; class=&#34;headerlink&#34; title=&#34;Git和SVN&#34;&gt;&lt;/a&gt;Git和SVN&lt;/h2&gt;&lt;h2 id=&#34;Git安装&#34;&gt;&lt;a href=&#34;#Git安装&#34; class=&#34;headerlink&#34; title=&#34;Git安装&#34;&gt;&lt;/a&gt;Git安装&lt;/h2&gt;&lt;p&gt;git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。&lt;/p&gt;
+&lt;p&gt;mac安装git&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ brew &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;检查git是否安装完成&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; --version
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; version &lt;span class=&#34;token number&#34;&gt;2.32&lt;/span&gt;.0 &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;Apple Git-132&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;" />
     <meta property="og:url" content="https://ahern88.github.io/2022/04/05/git-in-depth-study/index.html" />
     <meta property="og:site_name" content="" />
     <meta property="article:author" content="ahern88" />
     <meta property="article:publisher" content="" />
-    <meta property="og:description" content="ahern88的技术小站" />
+    <meta property="og:description" content="&lt;blockquote&gt;
+&lt;p&gt;Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;Git和SVN&#34;&gt;&lt;a href=&#34;#Git和SVN&#34; class=&#34;headerlink&#34; title=&#34;Git和SVN&#34;&gt;&lt;/a&gt;Git和SVN&lt;/h2&gt;&lt;h2 id=&#34;Git安装&#34;&gt;&lt;a href=&#34;#Git安装&#34; class=&#34;headerlink&#34; title=&#34;Git安装&#34;&gt;&lt;/a&gt;Git安装&lt;/h2&gt;&lt;p&gt;git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。&lt;/p&gt;
+&lt;p&gt;mac安装git&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ brew &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;检查git是否安装完成&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; --version
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; version &lt;span class=&#34;token number&#34;&gt;2.32&lt;/span&gt;.0 &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;Apple Git-132&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;" />
     <meta name="twitter:title" content="一文深入浅出学习Git工具 | ahern88的技术小站"/>
-    <meta name="twitter:description" content="ahern88的技术小站"/>
+    <meta name="twitter:description" content="&lt;blockquote&gt;
+&lt;p&gt;Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;Git和SVN&#34;&gt;&lt;a href=&#34;#Git和SVN&#34; class=&#34;headerlink&#34; title=&#34;Git和SVN&#34;&gt;&lt;/a&gt;Git和SVN&lt;/h2&gt;&lt;h2 id=&#34;Git安装&#34;&gt;&lt;a href=&#34;#Git安装&#34; class=&#34;headerlink&#34; title=&#34;Git安装&#34;&gt;&lt;/a&gt;Git安装&lt;/h2&gt;&lt;p&gt;git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。&lt;/p&gt;
+&lt;p&gt;mac安装git&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ brew &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;检查git是否安装完成&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; --version
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; version &lt;span class=&#34;token number&#34;&gt;2.32&lt;/span&gt;.0 &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;Apple Git-132&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;"/>
     <script type="application/ld+json">
         {
-            "description": "ahern88的技术小站",
+            "description": "&lt;blockquote&gt;
+&lt;p&gt;Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;Git和SVN&#34;&gt;&lt;a href=&#34;#Git和SVN&#34; class=&#34;headerlink&#34; title=&#34;Git和SVN&#34;&gt;&lt;/a&gt;Git和SVN&lt;/h2&gt;&lt;h2 id=&#34;Git安装&#34;&gt;&lt;a href=&#34;#Git安装&#34; class=&#34;headerlink&#34; title=&#34;Git安装&#34;&gt;&lt;/a&gt;Git安装&lt;/h2&gt;&lt;p&gt;git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。&lt;/p&gt;
+&lt;p&gt;mac安装git&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ brew &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;检查git是否安装完成&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;$ &lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; --version
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; version &lt;span class=&#34;token number&#34;&gt;2.32&lt;/span&gt;.0 &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;Apple Git-132&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;",
             "author": { "@type": "Person", "name": "ahern88" },
             "@type": "BlogPosting",
             "url": "https://ahern88.github.io/2022/04/05/git-in-depth-study/index.html",
@@ -59,6 +104,8 @@
 
     
 
+    
+    <link rel="icon" href="./images/favicon.ico">
     
 
     
@@ -118,6 +165,14 @@
             </div>
             <div class="header-menu-social">
                 
+    <a class="social" target="_blank" href="https://www.github.com/ahern88">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="https://twitter.com/ailinxi2015">
+        <box-icon type='logo' name='twitter'></box-icon>
+    </a>
+
             </div>
         </div>
 
@@ -155,7 +210,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-cl1r829lv00061kww47451dqk" class="article article-type-post" itemscope
+    <article id="post-cl20704te00016tww4p1l4wl1" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -202,9 +257,9 @@
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <blockquote>
-<p>Git也许在很多人看来是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。</p>
+<p>Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。</p>
 </blockquote>
-<h2 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h2><p>git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。</p>
+<h2 id="Git和SVN"><a href="#Git和SVN" class="headerlink" title="Git和SVN"></a>Git和SVN</h2><h2 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h2><p>git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。</p>
 <p>mac安装git</p>
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ brew <span class="token function">install</span> <span class="token function">git</span></code></pre>
 
@@ -212,7 +267,9 @@
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> --version
 <span class="token function">git</span> version <span class="token number">2.32</span>.0 <span class="token punctuation">(</span>Apple Git-132<span class="token punctuation">)</span></code></pre>
 
-<h2 id="Git命令"><a href="#Git命令" class="headerlink" title="Git命令"></a>Git命令</h2><h3 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h3><p>init命令的原理很简单，其原理就是在当前目录下创建 .git 文件夹，并生成如下文件结构</p>
+<span id="more"></span>
+
+<h2 id="Git命令"><a href="#Git命令" class="headerlink" title="Git命令"></a>Git命令</h2><h3 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h3><p>init命令的原理很简单，其原理就是在当前目录下创建 .git 文件夹，并生成如下文件结构，这个过程相当于初始化git内置的文件数据库</p>
 <pre class="language-text" data-language="text"><code class="language-text">├── HEAD
 ├── config
 ├── description
@@ -239,16 +296,223 @@
     ├── heads
     └── tags</code></pre>
 
+<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><p>先看clone的整个过程<img src="/./images/git-in-depth-study/Git%E5%8E%9F%E7%90%86-Clone%E5%8E%9F%E7%90%86.drawio.png" alt="Clone流程图"></p>
+<p>git clone其实本质包含三步操作</p>
+<ol>
+<li><p>先执行init初始化本地数据库</p>
+</li>
+<li><p>通过指定的url去远程仓库拉取数据，分两个数据请求</p>
+<ul>
+<li><p>请求refs数据（先发送&#x2F;info&#x2F;refs?service&#x3D;git-upload-pack）</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">GET /xxxx/xxx.git/info/refs?service<span class="token operator">=</span>git-upload-pack HTTP/1.1
+Host: git.xxxx.com
+Authorization: Basic <span class="token assign-left variable">xxxxxxxxxx</span><span class="token operator">==</span>
+User-Agent: git/2.35.GIT
+Accept: */*
+Accept-Encoding: deflate, <span class="token function">gzip</span>
+Accept-Language: zh-CN, *<span class="token punctuation">;</span><span class="token assign-left variable">q</span><span class="token operator">=</span><span class="token number">0.9</span>
+Pragma: no-cache
+Git-Protocol: <span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token number">2</span>
+Connection: keep-alive
 
+HTTP/1.1 <span class="token number">200</span> OK
+Server: nginx
+Date: Tue, <span class="token number">12</span> Apr <span class="token number">2022</span> <span class="token number">17</span>:11:30 GMT
+Content-Type: application/x-git-upload-pack-advertisement
+Content-Length: <span class="token number">140</span>
+Cache-Control: no-cache
+Content-Encoding: <span class="token function">gzip</span>
+Strict-Transport-Security: max-age<span class="token operator">=</span><span class="token number">31536000</span>
+Referrer-Policy: strict-origin-when-cross-origin
+Proxy-Connection: keep-alive
 
-<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><h3 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h3><h3 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h3><h3 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a>git fetch</h3><h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><h3 id="git-post"><a href="#git-post" class="headerlink" title="git post"></a>git post</h3><h3 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h3><h3 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h3><h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h3><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><h2 id="Git底层命令"><a href="#Git底层命令" class="headerlink" title="Git底层命令"></a>Git底层命令</h2><h3 id="git-ls-files"><a href="#git-ls-files" class="headerlink" title="git ls-files"></a>git ls-files</h3><pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo04 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> ✗ <span class="token function">git</span> ls-files -s
+001e<span class="token comment"># service=git-upload-pack</span>
+0000000eversion <span class="token number">2</span>
+<span class="token assign-left variable">0015agent</span><span class="token operator">=</span>git/2.29.0
+000cls-refs
+<span class="token assign-left variable">0019fetch</span><span class="token operator">=</span>shallow filter
+0012server-option
+0017object-format<span class="token operator">=</span>sha1
+0000</code></pre>
+</li>
+<li><p>请求pack数据（再发送2次&#x2F;info&#x2F;git-upload-pack获取服务端的数据，第1次获取refs信息，第2次获取object压缩文件）</p>
+<p>第一次请求获取refs信息，ls-refs命令</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">POST /xxxx/xxxx.git/git-upload-pack HTTP/1.1
+Host: git.xxxx.com
+Authorization: Basic <span class="token assign-left variable">xxxxxxxx</span><span class="token operator">==</span>
+User-Agent: git/2.35.GIT
+Accept-Encoding: deflate, <span class="token function">gzip</span>
+Content-Type: application/x-git-upload-pack-request
+Accept: application/x-git-upload-pack-result
+Git-Protocol: <span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token number">2</span>
+Content-Length: <span class="token number">166</span>
+Connection: keep-alive
+
+<span class="token assign-left variable">0014command</span><span class="token operator">=</span>ls-refs
+<span class="token assign-left variable">0016agent</span><span class="token operator">=</span>git/2.35.GIT0016object-format<span class="token operator">=</span>sha100010009peel
+000csymrefs
+0014ref-prefix HEAD
+001bref-prefix refs/heads/
+001aref-prefix refs/tags/
+0000
+
+HTTP/1.1 <span class="token number">200</span> OK
+Server: nginx
+Date: Tue, <span class="token number">12</span> Apr <span class="token number">2022</span> <span class="token number">17</span>:11:30 GMT
+Content-Type: application/x-git-upload-pack-result
+Transfer-Encoding: chunked
+Cache-Control: no-cache
+Strict-Transport-Security: max-age<span class="token operator">=</span><span class="token number">31536000</span>
+Referrer-Policy: strict-origin-when-cross-origin
+Proxy-Connection: keep-alive
+
+0053527a1cfca15f69a4fc70a5a8ab0a4780a08d54cd HEAD symref-target:refs/heads/develop
+003ec4a3084ab692ac60c21c9b1fd91d66f6b33ca1ff refs/heads/2.0.0
+003e2e4de8da6ddbe3d3449f09759074c45632578308 refs/heads/2.0.1
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+003e2e4de8da6ddbe3d3449f09759074c45632578308 refs/heads/5.0.1
+0000
+<span class="token comment"># 0053和003e是数据类型，如branch、tag等</span></code></pre>
+
+<p>第二次获取object的压缩信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">POST /xxxxx/xxx.git/git-upload-pack HTTP/1.1
+Host: git.xxxxx.com
+Authorization: Basic <span class="token assign-left variable">xxxxxxxxxx</span><span class="token operator">==</span>
+User-Agent: git/2.35.GIT
+Accept-Encoding: deflate, <span class="token function">gzip</span>
+Content-Type: application/x-git-upload-pack-request
+Accept: application/x-git-upload-pack-result
+Git-Protocol: <span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token number">2</span>
+Content-Encoding: <span class="token function">gzip</span>
+Content-Length: <span class="token number">1893</span>
+Connection: keep-alive
+
+<span class="token assign-left variable">0011command</span><span class="token operator">=</span>fetch0016agent<span class="token operator">=</span>git/2.35.GIT0016object-format<span class="token operator">=</span>sha10001000dthin-pack000dofs-delta0032want 527a1cfca15f69a4fc70a5a8ab0a4780a08d54cd
+0032want c4a3084ab692ac60c21c9b1fd91d66f6b33ca1ff
+0032want 2e4de8da6ddbe3d3449f09759074c45632578308
+0032want 3791b07056cd2bd04be6acaea51cd886587aa826
+0032want dadaba7ca933af40ce703604986e53b5c15a2145
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+0032want 5f7fd8f722527c8cfcdeda7a4ff51d052c568725
+0032want 2317be07ef3a7a083c8ad8e42605ebdd0f5e24dc
+0009done
+0000
+
+HTTP/1.1 <span class="token number">200</span> OK
+Server: nginx
+Date: Tue, <span class="token number">12</span> Apr <span class="token number">2022</span> <span class="token number">17</span>:11:30 GMT
+Content-Type: application/x-git-upload-pack-result
+Transfer-Encoding: chunked
+Cache-Control: no-cache
+Strict-Transport-Security: max-age<span class="token operator">=</span><span class="token number">31536000</span>
+Referrer-Policy: strict-origin-when-cross-origin
+Proxy-Connection: keep-alive
+
+000dpackfile
+0026Enumerating objects: <span class="token number">7015</span>, done.
+0010PACK     2005gxËÁ	1@Ñ<span class="token punctuation">&#123;</span>ªÈ<span class="token punctuation">]</span>dL±I²»ueÉ^¬Ã:¼<span class="token punctuation">&#123;</span>²±+ðôáÁïk­:<span class="token comment">#2Y@,`#Å5GÀQrbu¡µ»Î5CBG¾·I meï1K f¥ )Íç¢­ËªiëyÐ_O×¾ìeÚ¢ó)åè@ïL2F&#125;uz¯,êõ¼¿oÞõp?</span>
+xA
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+¨½xuÊ<span class="token punctuation">;</span> EÑUXËXÌdx ágfÀÂÕk,M,ÏÍ5k¦iáÞBæ<span class="token punctuation">&#125;</span> ³B¬BNºoÒçawt<span class="token variable">$V</span>ðn¹L­Q»Fþ
+ÝCÝ
+RÛ.ûÂ­®iXÖ¥nÑý¼<span class="token operator">!</span>gj0006­0000</code></pre></li>
+</ul>
+</li>
+<li><p>基于objects文件夹的数据在本地工作区中恢复当前版本的文件</p>
+</li>
+</ol>
+<p>使用index-pack能基于已有的pack文件生成idx文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> index-pack -o pack-168897a15d76f859db48b05e57fa62ed51da13c7.idx /xxx_repo/.git/objects/pack/pack-168897a15d76f859db48b05e57fa62ed51da13c7.pack</code></pre>
+
+<p>最后通过生成的pack文件，通过commit对象获取到tree对象，从tree对象恢复index文件，并checkout出最新的工作区文件</p>
+<h3 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h3><p>git add命令执行后会做如下两件事</p>
+<ul>
+<li><p>将当前工作区中的文件计算hash（采用sha1）后写入object数据库中（这里只包含内容，不包含文件名）</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> ✗ tree .git
+├── objects
+│   ├── 1d
+│   │   └── f95118185e2c64bad7b70cb734d64b8f156de8
+│   ├── <span class="token number">42</span>
+│   │   └── 8e2d41d463864e5f6f691bb8b25c42e6e70817
+│   ├── 5d
+│   │   └── b502c2cb71c9ecae6fdba29e019f3990fba40b
+│   ├── f5
+│   │   └── 69a1819e3e3f3c1099c3e8a203ca60fcc44c08
+➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -t f569a1819e3e3f3c1099c3e8a203ca60fcc44c08
+blob
+➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -p f569a1819e3e3f3c1099c3e8a203ca60fcc44c08
+hello abcdefg12312312</code></pre>
+</li>
+<li><p>将当前文件列表写入到index索引文件中（包含文件类型、权限、hash值、文件名等）</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> ✗ <span class="token function">git</span> ls-files --stage
+<span class="token number">100644</span> 84b20b931e64957dc817031e1221f8e79af9ab19 <span class="token number">0</span>	com/test3.txt
+<span class="token number">100644</span> 1df95118185e2c64bad7b70cb734d64b8f156de8 <span class="token number">0</span>	test.txt
+<span class="token number">100644</span> f569a1819e3e3f3c1099c3e8a203ca60fcc44c08 <span class="token number">0</span>	test2.txt</code></pre></li>
+</ul>
+<blockquote>
+<p>注意：add 操作并不会为文件夹创建tree对象，而是在下面commit操作完成tree对象的生成。</p>
+</blockquote>
+<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h3><pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> ✗ <span class="token function">git</span> commit -m <span class="token string">'init demo'</span>
+<span class="token punctuation">[</span>master（根提交） 014dc87<span class="token punctuation">]</span> init demo
+ <span class="token number">3</span> files changed, <span class="token number">3</span> insertions<span class="token punctuation">(</span>+<span class="token punctuation">)</span>
+ create mode <span class="token number">100644</span> com/test3.txt
+ create mode <span class="token number">100644</span> test.txt
+ create mode <span class="token number">100644</span> test2.txt</code></pre>
+
+<p>commit操作会为当前提交生成commit对象，并在logs中记录log信息，解析index暂存区的文件结构，为文件夹生成tree对象，将此过程产生的对象存入object数据库中。</p>
+<p>其中logs文件夹的信息主要为 git reflog 服务，可以看到git的操作日志（如删除分支、切换分支等操作）</p>
+<p>每个commit对象会指向一个tree对象和一到多个parent对象，指向的tree对象包含了当前commit对应的所有文件对象。</p>
+<h3 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a>git fetch</h3><h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>pull命令简单理解就是 fetch + merge，先通过fetch将远程仓库中最新的代码同步到 本地远程分支中，然后将本地远程分支的代码合并到对象的本地分支中</p>
+<h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h3><h3 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h3><h3 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h3><h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h3><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><h2 id="Git底层命令"><a href="#Git底层命令" class="headerlink" title="Git底层命令"></a>Git底层命令</h2><h3 id="git-ls-files"><a href="#git-ls-files" class="headerlink" title="git ls-files"></a>git ls-files</h3><pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo04 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> ✗ <span class="token function">git</span> ls-files -s
 <span class="token number">100644</span> defcc8403294ad3772ef80c7f9f0863f2e56be47 <span class="token number">1</span>	Test.java
 <span class="token number">100644</span> 5c5afc55543e5d2b68c38fdd966a3cfc9234d715 <span class="token number">2</span>	Test.java
 <span class="token number">100644</span> a0f09dfc6ae374ced7de33884abd2e4817d7eff9 <span class="token number">3</span>	Test.java
 <span class="token number">100644</span> faa29b2a19af8a3ab5682c228aa5b2b7b7db8561 <span class="token number">0</span>	text001.txt
 <span class="token number">100644</span> 92df0d24f248938ee3ab8867af2d486c58ade458 <span class="token number">0</span>	text002.txt</code></pre>
 
-<h3 id="git-cat-file"><a href="#git-cat-file" class="headerlink" title="git cat-file"></a>git cat-file</h3><h3 id="git-hash-object"><a href="#git-hash-object" class="headerlink" title="git hash-object"></a>git hash-object</h3><h2 id="Git原理"><a href="#Git原理" class="headerlink" title="Git原理"></a>Git原理</h2><h3 id="Git对象"><a href="#Git对象" class="headerlink" title="Git对象"></a>Git对象</h3><h4 id="Blob"><a href="#Blob" class="headerlink" title="Blob"></a>Blob</h4><h4 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h4><h4 id="Commit"><a href="#Commit" class="headerlink" title="Commit"></a>Commit</h4><h2 id="Git扩展功能"><a href="#Git扩展功能" class="headerlink" title="Git扩展功能"></a>Git扩展功能</h2><h3 id="Submodule"><a href="#Submodule" class="headerlink" title="Submodule"></a>Submodule</h3><h3 id="LFS"><a href="#LFS" class="headerlink" title="LFS"></a>LFS</h3><h3 id="WorkTree"><a href="#WorkTree" class="headerlink" title="WorkTree"></a>WorkTree</h3><h2 id="Git源码环境搭建"><a href="#Git源码环境搭建" class="headerlink" title="Git源码环境搭建"></a>Git源码环境搭建</h2><p>安装openssl和asciidoc（非必须）</p>
+<h3 id="git-cat-file"><a href="#git-cat-file" class="headerlink" title="git cat-file"></a>git cat-file</h3><h3 id="git-hash-object"><a href="#git-hash-object" class="headerlink" title="git hash-object"></a>git hash-object</h3><h2 id="Git内部原理"><a href="#Git内部原理" class="headerlink" title="Git内部原理"></a>Git内部原理</h2><h3 id="Git的四大对象"><a href="#Git的四大对象" class="headerlink" title="Git的四大对象"></a>Git的四大对象</h3><p>git底层包含四大对象，blob、tree、commit、tag，每个对象都存储在 .git&#x2F;objects&#x2F; 下，通过类型+内容计算出sha1的40位长度的摘要（其中前2位为文件夹名称，后38位为文件名）</p>
+<h4 id="blob对象"><a href="#blob对象" class="headerlink" title="blob对象"></a>blob对象</h4><pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -t f569a1819e3e3f3c1099c3e8a203ca60fcc44c08
+blob
+➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -p f569a1819e3e3f3c1099c3e8a203ca60fcc44c08
+hello abcdefg12312312</code></pre>
+
+<p>工作区中的每个文件都会产生一个或多个版本的blob对象，当使用add命令或hash-object命令的时候会将内容写入到object数据库中，类型为blob。</p>
+<h4 id="tree对象"><a href="#tree对象" class="headerlink" title="tree对象"></a>tree对象</h4><pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -t f6aef1915baafe2567427da5d687a4b8ebfac983
+tree
+➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -p f6aef1915baafe2567427da5d687a4b8ebfac983
+040000 tree e9543a8cde4b92f8a6ad4a07ab5979c04d23fab8	com
+<span class="token number">100644</span> blob 1df95118185e2c64bad7b70cb734d64b8f156de8	test.txt
+<span class="token number">100644</span> blob f569a1819e3e3f3c1099c3e8a203ca60fcc44c08	test2.txt</code></pre>
+
+<p>tree对象可以理解为是文件夹的对象，整个工作区文件夹相当于根tree，其中的子文件为blob对象，而子文件夹为tree对象，依次能枚举出所有文件和文件夹的结构。</p>
+<h4 id="commit对象"><a href="#commit对象" class="headerlink" title="commit对象"></a>commit对象</h4><pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -t 014dc87c3af9af64b96688d0e408cd2d718a8805
+commit
+➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -p 014dc87c3af9af64b96688d0e408cd2d718a8805
+tree f6aef1915baafe2567427da5d687a4b8ebfac983
+author ahern88 <span class="token operator">&lt;</span>ahern88@163.com<span class="token operator">></span> <span class="token number">1649775779</span> +0800
+committer ahern88 <span class="token operator">&lt;</span>ahern88@163.com<span class="token operator">></span> <span class="token number">1649775779</span> +0800
+
+init demo</code></pre>
+
+<p>commit对象包含一个或多个parent的commit指向 和 tree对象（这个是整个工作区文件夹的快照，联合index文件能恢复整个工作区）。</p>
+<h4 id="tag对象"><a href="#tag对象" class="headerlink" title="tag对象"></a>tag对象</h4><pre class="language-bash" data-language="bash"><code class="language-bash">➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -t 20033db439a593a1866ab312ed9bb100ddfefa96
+tag
+➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -p 20033db439a593a1866ab312ed9bb100ddfefa96
+object 014dc87c3af9af64b96688d0e408cd2d718a8805
+<span class="token builtin class-name">type</span> commit
+tag v1.0.tag
+tagger ahern88 <span class="token operator">&lt;</span>ahern88@163.com<span class="token operator">></span> <span class="token number">1649778880</span> +0800
+
+<span class="token builtin class-name">test</span> my tag
+➜  demo05 git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> cat-file -t 014dc87c3af9af64b96688d0e408cd2d718a8805
+commit</code></pre>
+
+<p>其中标签分轻量级标签和附注标签</p>
+<ul>
+<li>轻量级标签：不产生tag对象，tag文件直接指向一个commit对象</li>
+<li>附注标签：产生tag对象，tag文件指向tag对象，其中tag对象包含详细信息（标签信息和作者等信息）和commit对象的指向</li>
+</ul>
+<h2 id="Git扩展功能"><a href="#Git扩展功能" class="headerlink" title="Git扩展功能"></a>Git扩展功能</h2><h3 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h3><h3 id="lfs"><a href="#lfs" class="headerlink" title="lfs"></a>lfs</h3><h3 id="worktree"><a href="#worktree" class="headerlink" title="worktree"></a>worktree</h3><h2 id="Git源码环境搭建"><a href="#Git源码环境搭建" class="headerlink" title="Git源码环境搭建"></a>Git源码环境搭建</h2><p>安装openssl和asciidoc（非必须）</p>
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ brew <span class="token function">install</span> openssl@3
 $ <span class="token builtin class-name">export</span> <span class="token assign-left variable">OPENSSLDIR</span><span class="token operator">=</span>/usr/local/opt/openssl@3
 $ <span class="token builtin class-name">cd</span> git-master
@@ -379,7 +643,7 @@ $ <span class="token function">sudo</span> <span class="token function">make</sp
   <div class="widget-wrap widget-cate">
     <div class="widget-title"><span>Categories</span></div>
     <div class="widget-inner">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li></ul>
     </div>
   </div>
 
@@ -389,7 +653,7 @@ $ <span class="token function">sudo</span> <span class="token function">make</sp
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TIDB/" rel="tag">TIDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li></ul>
     </div>
   </div>
 
@@ -400,6 +664,10 @@ $ <span class="token function">sudo</span> <span class="token function">make</sp
     <div class="widget-title"><span>Recent Posts</span></div>
     <div class="widget-inner">
       <ul>
+        
+          <li>
+            <a href="/2022/04/10/tidb-architecture-philosophy/">TiDB的架构哲学与思考</a>
+          </li>
         
           <li>
             <a href="/2022/04/09/run-gdb-on-macos/">在MacOS上使用GDB调试C程序</a>
