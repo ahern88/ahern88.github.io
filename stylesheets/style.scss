@@ -947,6 +947,8 @@ img:not([src]):not([srcset]) {
 
     .archive-year-wrap {
         padding-bottom: 8px;
+        font-size: 16px;
+        font-weight: bold;
 
         a {
             color: var(--color-white);
@@ -964,7 +966,9 @@ img:not([src]):not([srcset]) {
             font-size: 14px;
             font-weight: 400;
             line-height: 22px;
-            margin: 5px;
+            margin: 8px 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed var(--color-white);
         }
     }
 }
