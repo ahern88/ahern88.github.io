@@ -77,27 +77,31 @@
 }
 
 .post-inner-html h1 {
-	font-size: 22px;
+	font-size: 26px;
 	line-height: 48px;
-	text-align: left
+	text-align: left;
+	font-weight: bold;
 }
 
 .post-inner-html h2 {
-	font-size: 18px;
+	font-size: 20px;
 	line-height: 26px;
-	text-align: left
+	text-align: left;
+	font-weight: bold;
 }
 
 .post-inner-html h3 {
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 26px;
-	text-align: left
+	text-align: left;
+	font-weight: bold;
 }
 
 .post-inner-html h4,.post-inner-html h5,.post-inner-html h6 {
 	line-height: 26px;
-	font-size: 14px;
-	text-align: left
+	font-size: 16px;
+	text-align: left;
+	font-weight: bold;
 }
 
 .post-inner-html blockquote {

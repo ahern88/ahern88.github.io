@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>使用pack文件恢复Git工作区 | ahern88的技术小站</title>
+
+    <meta name="description" content="&lt;h2 id=&#34;0-本文介绍&#34;&gt;&lt;a href=&#34;#0-本文介绍&#34; class=&#34;headerlink&#34; title=&#34;0. 本文介绍&#34;&gt;&lt;/a&gt;0. 本文介绍&lt;/h2&gt;&lt;p&gt;了解过Git原理的同学应该都知道，Git底层是一个kv的文件数据库，Git管理的所有的文件都存在objects文件夹中，而当我们从远端仓库clone数据到本地的过程中主要传递两种数据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;branch和tag对应的commit id数据列表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;服务器仓库生成的pack文件（包含所有Git历史提交的数据版本）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么本文就介绍如何通过pack文件和一个commit id恢复本地工作区，从而去加深了解Git的底层原理。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-新建仓库并加入已有的pack文件&#34;&gt;&lt;a href=&#34;#1-新建仓库并加入已有的pack文件&#34; class=&#34;headerlink&#34; title=&#34;1. 新建仓库并加入已有的pack文件&#34;&gt;&lt;/a&gt;1. 新建仓库并加入已有的pack文件&lt;/h2&gt;&lt;p&gt;假设我们拿到服务器仓库中的pack文件 pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack 在&amp;#x2F;tmp目录下&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; study_git
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; init demo01 &lt;span class=&#34;token comment&#34;&gt;# 创建demo01的git目录&lt;/span&gt;
+&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;cp&lt;/span&gt; /tmp/pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack &lt;span class=&#34;token builtin class-name&#34;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;2-基于pack文件生成pack的idx索引文件&#34;&gt;&lt;a href=&#34;#2-基于pack文件生成pack的idx索引文件&#34; class=&#34;headerlink&#34; title=&#34;2. 基于pack文件生成pack的idx索引文件&#34;&gt;&lt;/a&gt;2. 基于pack文件生成pack的idx索引文件&lt;/h2&gt;&lt;p&gt;pack中包含了所有的object数据，但它时一个压缩文件，需要有对应idx索引文件才能完成object数据的查找，现在我们有了pack文件，那么我们可以基于&lt;code&gt;index-pack&lt;/code&gt;命令去生成对应的idx文件，idx文件包含是object对应的hash值和对应的存储位置，可以快速定位。&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; index-pack -o pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack
+598b51485951bbfd3cd893ef230beb0e96ea172c
+&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; -l
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack&lt;/code&gt;&lt;/pre&gt;">
+    <meta name="keywords" content="JAVA,架构,微服务,分布式,足球,C罗">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "使用pack文件恢复Git工作区 | ahern88的技术小站"  />
+    <meta property="og:description" content= "&lt;h2 id=&#34;0-本文介绍&#34;&gt;&lt;a href=&#34;#0-本文介绍&#34; class=&#34;headerlink&#34; title=&#34;0. 本文介绍&#34;&gt;&lt;/a&gt;0. 本文介绍&lt;/h2&gt;&lt;p&gt;了解过Git原理的同学应该都知道，Git底层是一个kv的文件数据库，Git管理的所有的文件都存在objects文件夹中，而当我们从远端仓库clone数据到本地的过程中主要传递两种数据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;branch和tag对应的commit id数据列表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;服务器仓库生成的pack文件（包含所有Git历史提交的数据版本）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么本文就介绍如何通过pack文件和一个commit id恢复本地工作区，从而去加深了解Git的底层原理。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-新建仓库并加入已有的pack文件&#34;&gt;&lt;a href=&#34;#1-新建仓库并加入已有的pack文件&#34; class=&#34;headerlink&#34; title=&#34;1. 新建仓库并加入已有的pack文件&#34;&gt;&lt;/a&gt;1. 新建仓库并加入已有的pack文件&lt;/h2&gt;&lt;p&gt;假设我们拿到服务器仓库中的pack文件 pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack 在&amp;#x2F;tmp目录下&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; study_git
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; init demo01 &lt;span class=&#34;token comment&#34;&gt;# 创建demo01的git目录&lt;/span&gt;
+&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;cp&lt;/span&gt; /tmp/pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack &lt;span class=&#34;token builtin class-name&#34;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;2-基于pack文件生成pack的idx索引文件&#34;&gt;&lt;a href=&#34;#2-基于pack文件生成pack的idx索引文件&#34; class=&#34;headerlink&#34; title=&#34;2. 基于pack文件生成pack的idx索引文件&#34;&gt;&lt;/a&gt;2. 基于pack文件生成pack的idx索引文件&lt;/h2&gt;&lt;p&gt;pack中包含了所有的object数据，但它时一个压缩文件，需要有对应idx索引文件才能完成object数据的查找，现在我们有了pack文件，那么我们可以基于&lt;code&gt;index-pack&lt;/code&gt;命令去生成对应的idx文件，idx文件包含是object对应的hash值和对应的存储位置，可以快速定位。&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; index-pack -o pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack
+598b51485951bbfd3cd893ef230beb0e96ea172c
+&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; -l
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack&lt;/code&gt;&lt;/pre&gt;" />
+    <meta property="og:url" content="https://ahern88.github.io/2022/04/23/git-restore-worktree-by-packfile/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="ahern88" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;h2 id=&#34;0-本文介绍&#34;&gt;&lt;a href=&#34;#0-本文介绍&#34; class=&#34;headerlink&#34; title=&#34;0. 本文介绍&#34;&gt;&lt;/a&gt;0. 本文介绍&lt;/h2&gt;&lt;p&gt;了解过Git原理的同学应该都知道，Git底层是一个kv的文件数据库，Git管理的所有的文件都存在objects文件夹中，而当我们从远端仓库clone数据到本地的过程中主要传递两种数据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;branch和tag对应的commit id数据列表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;服务器仓库生成的pack文件（包含所有Git历史提交的数据版本）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么本文就介绍如何通过pack文件和一个commit id恢复本地工作区，从而去加深了解Git的底层原理。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-新建仓库并加入已有的pack文件&#34;&gt;&lt;a href=&#34;#1-新建仓库并加入已有的pack文件&#34; class=&#34;headerlink&#34; title=&#34;1. 新建仓库并加入已有的pack文件&#34;&gt;&lt;/a&gt;1. 新建仓库并加入已有的pack文件&lt;/h2&gt;&lt;p&gt;假设我们拿到服务器仓库中的pack文件 pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack 在&amp;#x2F;tmp目录下&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; study_git
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; init demo01 &lt;span class=&#34;token comment&#34;&gt;# 创建demo01的git目录&lt;/span&gt;
+&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;cp&lt;/span&gt; /tmp/pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack &lt;span class=&#34;token builtin class-name&#34;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;2-基于pack文件生成pack的idx索引文件&#34;&gt;&lt;a href=&#34;#2-基于pack文件生成pack的idx索引文件&#34; class=&#34;headerlink&#34; title=&#34;2. 基于pack文件生成pack的idx索引文件&#34;&gt;&lt;/a&gt;2. 基于pack文件生成pack的idx索引文件&lt;/h2&gt;&lt;p&gt;pack中包含了所有的object数据，但它时一个压缩文件，需要有对应idx索引文件才能完成object数据的查找，现在我们有了pack文件，那么我们可以基于&lt;code&gt;index-pack&lt;/code&gt;命令去生成对应的idx文件，idx文件包含是object对应的hash值和对应的存储位置，可以快速定位。&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; index-pack -o pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack
+598b51485951bbfd3cd893ef230beb0e96ea172c
+&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; -l
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack&lt;/code&gt;&lt;/pre&gt;" />
+    <meta name="twitter:title" content="使用pack文件恢复Git工作区 | ahern88的技术小站"/>
+    <meta name="twitter:description" content="&lt;h2 id=&#34;0-本文介绍&#34;&gt;&lt;a href=&#34;#0-本文介绍&#34; class=&#34;headerlink&#34; title=&#34;0. 本文介绍&#34;&gt;&lt;/a&gt;0. 本文介绍&lt;/h2&gt;&lt;p&gt;了解过Git原理的同学应该都知道，Git底层是一个kv的文件数据库，Git管理的所有的文件都存在objects文件夹中，而当我们从远端仓库clone数据到本地的过程中主要传递两种数据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;branch和tag对应的commit id数据列表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;服务器仓库生成的pack文件（包含所有Git历史提交的数据版本）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么本文就介绍如何通过pack文件和一个commit id恢复本地工作区，从而去加深了解Git的底层原理。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-新建仓库并加入已有的pack文件&#34;&gt;&lt;a href=&#34;#1-新建仓库并加入已有的pack文件&#34; class=&#34;headerlink&#34; title=&#34;1. 新建仓库并加入已有的pack文件&#34;&gt;&lt;/a&gt;1. 新建仓库并加入已有的pack文件&lt;/h2&gt;&lt;p&gt;假设我们拿到服务器仓库中的pack文件 pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack 在&amp;#x2F;tmp目录下&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; study_git
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; init demo01 &lt;span class=&#34;token comment&#34;&gt;# 创建demo01的git目录&lt;/span&gt;
+&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;cp&lt;/span&gt; /tmp/pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack &lt;span class=&#34;token builtin class-name&#34;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;2-基于pack文件生成pack的idx索引文件&#34;&gt;&lt;a href=&#34;#2-基于pack文件生成pack的idx索引文件&#34; class=&#34;headerlink&#34; title=&#34;2. 基于pack文件生成pack的idx索引文件&#34;&gt;&lt;/a&gt;2. 基于pack文件生成pack的idx索引文件&lt;/h2&gt;&lt;p&gt;pack中包含了所有的object数据，但它时一个压缩文件，需要有对应idx索引文件才能完成object数据的查找，现在我们有了pack文件，那么我们可以基于&lt;code&gt;index-pack&lt;/code&gt;命令去生成对应的idx文件，idx文件包含是object对应的hash值和对应的存储位置，可以快速定位。&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; index-pack -o pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack
+598b51485951bbfd3cd893ef230beb0e96ea172c
+&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; -l
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack&lt;/code&gt;&lt;/pre&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;h2 id=&#34;0-本文介绍&#34;&gt;&lt;a href=&#34;#0-本文介绍&#34; class=&#34;headerlink&#34; title=&#34;0. 本文介绍&#34;&gt;&lt;/a&gt;0. 本文介绍&lt;/h2&gt;&lt;p&gt;了解过Git原理的同学应该都知道，Git底层是一个kv的文件数据库，Git管理的所有的文件都存在objects文件夹中，而当我们从远端仓库clone数据到本地的过程中主要传递两种数据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;branch和tag对应的commit id数据列表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;服务器仓库生成的pack文件（包含所有Git历史提交的数据版本）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么本文就介绍如何通过pack文件和一个commit id恢复本地工作区，从而去加深了解Git的底层原理。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-新建仓库并加入已有的pack文件&#34;&gt;&lt;a href=&#34;#1-新建仓库并加入已有的pack文件&#34; class=&#34;headerlink&#34; title=&#34;1. 新建仓库并加入已有的pack文件&#34;&gt;&lt;/a&gt;1. 新建仓库并加入已有的pack文件&lt;/h2&gt;&lt;p&gt;假设我们拿到服务器仓库中的pack文件 pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack 在&amp;#x2F;tmp目录下&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; study_git
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; init demo01 &lt;span class=&#34;token comment&#34;&gt;# 创建demo01的git目录&lt;/span&gt;
+&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;cp&lt;/span&gt; /tmp/pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack &lt;span class=&#34;token builtin class-name&#34;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;2-基于pack文件生成pack的idx索引文件&#34;&gt;&lt;a href=&#34;#2-基于pack文件生成pack的idx索引文件&#34; class=&#34;headerlink&#34; title=&#34;2. 基于pack文件生成pack的idx索引文件&#34;&gt;&lt;/a&gt;2. 基于pack文件生成pack的idx索引文件&lt;/h2&gt;&lt;p&gt;pack中包含了所有的object数据，但它时一个压缩文件，需要有对应idx索引文件才能完成object数据的查找，现在我们有了pack文件，那么我们可以基于&lt;code&gt;index-pack&lt;/code&gt;命令去生成对应的idx文件，idx文件包含是object对应的hash值和对应的存储位置，可以快速定位。&lt;/p&gt;
+&lt;pre class=&#34;language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; demo01
+&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; index-pack -o pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack
+598b51485951bbfd3cd893ef230beb0e96ea172c
+&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; -l
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack&lt;/code&gt;&lt;/pre&gt;",
+            "author": { "@type": "Person", "name": "ahern88" },
+            "@type": "BlogPosting",
+            "url": "https://ahern88.github.io/2022/04/23/git-restore-worktree-by-packfile/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://ahern88.github.ioundefined"
+            },
+            "name": "ahern88"
+            },
+            "headline": "使用pack文件恢复Git工作区 | ahern88的技术小站",
+            "datePublished": "2022-04-23T13:55:17.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://ahern88.github.io/2022/04/23/git-restore-worktree-by-packfile/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+    <meta property="algolia:search" data-application-id="J3Z27P68M3" data-api-key="4eaf4c93378e153e99394f6d0baecf21" data-index-name="post_index">
+    
+
+    
+
+    
+    <link rel="icon" href="./images/favicon.ico">
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1650727145027.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1650727145027.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>ahern88的技术小站</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">文章</a>
+                
+                <a href="/aboutme">关于我</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="https://www.github.com/ahern88">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="https://twitter.com/ailinxi2015">
+        <box-icon type='logo' name='twitter'></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">文章</a>
+                    
+                    <a href="/aboutme">关于我</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl2c0eks80006udwwefma6r4m" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      使用pack文件恢复Git工作区
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-04-23T13:55:17.000Z" itemprop="datePublished">2022-04-23</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Git/">Git</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li></ul>
+            </div>
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="0-本文介绍"><a href="#0-本文介绍" class="headerlink" title="0. 本文介绍"></a>0. 本文介绍</h2><p>了解过Git原理的同学应该都知道，Git底层是一个kv的文件数据库，Git管理的所有的文件都存在objects文件夹中，而当我们从远端仓库clone数据到本地的过程中主要传递两种数据：</p>
+<ul>
+<li><p>branch和tag对应的commit id数据列表</p>
+</li>
+<li><p>服务器仓库生成的pack文件（包含所有Git历史提交的数据版本）</p>
+</li>
+</ul>
+<p>那么本文就介绍如何通过pack文件和一个commit id恢复本地工作区，从而去加深了解Git的底层原理。</p>
+<hr>
+<h2 id="1-新建仓库并加入已有的pack文件"><a href="#1-新建仓库并加入已有的pack文件" class="headerlink" title="1. 新建仓库并加入已有的pack文件"></a>1. 新建仓库并加入已有的pack文件</h2><p>假设我们拿到服务器仓库中的pack文件 pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack 在&#x2F;tmp目录下</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> study_git
+<span class="token function">git</span> init demo01 <span class="token comment"># 创建demo01的git目录</span>
+<span class="token builtin class-name">cd</span> demo01
+<span class="token function">cp</span> /tmp/pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack <span class="token builtin class-name">.</span>
+</code></pre>
+
+<hr>
+<h2 id="2-基于pack文件生成pack的idx索引文件"><a href="#2-基于pack文件生成pack的idx索引文件" class="headerlink" title="2. 基于pack文件生成pack的idx索引文件"></a>2. 基于pack文件生成pack的idx索引文件</h2><p>pack中包含了所有的object数据，但它时一个压缩文件，需要有对应idx索引文件才能完成object数据的查找，现在我们有了pack文件，那么我们可以基于<code>index-pack</code>命令去生成对应的idx文件，idx文件包含是object对应的hash值和对应的存储位置，可以快速定位。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> demo01
+<span class="token function">git</span> index-pack -o pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack
+598b51485951bbfd3cd893ef230beb0e96ea172c
+<span class="token function">ls</span> -l
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack</code></pre>
+
+<span id="more"></span>
+
+<p>这样就在demo01目录下生成了对应的idx文件，现在我们将pack和idx文件转移到objects&#x2F;pack目录下</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> demo01
+<span class="token function">mv</span> pack-* .git/objects/pack/
+<span class="token function">git</span> cat-file -p 83248373454c38948cc5077e8e613ea276d20018
+tree c6861a154c3a91f639db2fbcead9d19c6aa84f0a
+parent 43ee8495120f80671b1edc943d6e369b270e303c
+author ahern88 <span class="token operator">&lt;</span>ahern88@163.com<span class="token operator">></span> <span class="token number">1650702777</span> +0800
+committer ahern88 <span class="token operator">&lt;</span>ahern88@163.com<span class="token operator">></span> <span class="token number">1650702777</span> +0800
+
+update <span class="token number">1</span>.txt</code></pre>
+
+<p>现在我们完成了pack和idx文件的准备，数据准备好了，但是我们发现工作区中并没有文件，下一步我们要恢复工作区</p>
+<hr>
+<h2 id="3-恢复工作区"><a href="#3-恢复工作区" class="headerlink" title="3. 恢复工作区"></a>3. 恢复工作区</h2><p>现在object相关的数据在底层都已经存在了，但是现在我们差一个入口，一个commit的入口，只要有了commit id的值，我们就能通过这个commit id找到对应的tree，基于tree就能找到所有相关的blob和tree，就能恢复工作区。</p>
+<p>假设我们知道历史的一次提交，产生的commit id为 83248373454c38948cc5077e8e613ea276d20018</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> demo01
+<span class="token function">ls</span>  <span class="token comment"># 发现目前工作区中没有任何文件</span>
+<span class="token function">git</span> checkout 83248373454c38948cc5077e8e613ea276d20018
+注意：正在切换到 <span class="token string">'83248373454c38948cc5077e8e613ea276d20018'</span>。
+
+您正处于分离头指针状态。您可以查看、做试验性的修改及提交，并且您可以在切换
+回一个分支时，丢弃在此状态下所做的提交而不对分支造成影响。
+
+如果您想要通过创建分支来保留在此状态下所做的提交，您可以通过在 switch 命令
+中添加参数 -c 来实现（现在或稍后）。例如：
+
+  <span class="token function">git</span> switch -c <span class="token operator">&lt;</span>新分支名<span class="token operator">></span>
+
+或者撤销此操作：
+
+  <span class="token function">git</span> switch -
+
+通过将配置变量 advice.detachedHead 设置为 <span class="token boolean">false</span> 来关闭此建议
+
+HEAD 目前位于 <span class="token number">8324837</span> update <span class="token number">1</span>.txt
+
+<span class="token function">git</span> checkout -b feature/v1.0
+<span class="token function">git</span> ls-files --stage
+<span class="token number">100644</span> 145e9a78fb6b7dfcff4311b0ba7de663c98bb6db <span class="token number">0</span>	<span class="token number">1</span>.txt
+<span class="token number">100644</span> 8d0e41234f24b6da002d962a26c2495ea16a425f <span class="token number">0</span>	<span class="token number">2</span>.txt
+<span class="token number">100644</span> 8d0e41234f24b6da002d962a26c2495ea16a425f <span class="token number">0</span>	<span class="token number">3</span>.txt
+<span class="token number">100644</span> e5c64e672148327cb9cc9a47600ca01c52babe1c <span class="token number">0</span>	<span class="token number">4</span>.txt
+<span class="token number">100644</span> 87db4918eac1d0263f89c4459bcbcc036536c045 <span class="token number">0</span>	<span class="token number">5</span>.txt
+<span class="token function">ls</span>
+<span class="token number">1</span>.txt <span class="token number">2</span>.txt <span class="token number">3</span>.txt <span class="token number">4</span>.txt <span class="token number">5</span>.txt</code></pre>
+
+<p>就这样通过一个commit id和一个pack文件，重建恢复了整个工作区的文件目录，你就又可以开始你的代码之旅了。</p>
+<hr>
+<h2 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4. 参考资料"></a>4. 参考资料</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2">官方 Pro Git 书籍</a></p>
+</li>
+<li><p><a href="https://ahern88.github.io/2022/04/05/git-in-depth-study/">一文深入浅出学习Git工具</a></p>
+</li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2022/04/18/git-commands/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Git命令集合</div>
+    </a>
+  
+</nav>
+
+
+    <!-- <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=使用pack文件恢复Git工作区 - ahern88的技术小站&url=https%3A%2F%2Fahern88.github.io%2F2022%2F04%2F23%2Fgit-restore-worktree-by-packfile%2F">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=使用pack文件恢复Git工作区 - ahern88的技术小站&url=https://ahern88.github.io/2022/04/23/git-restore-worktree-by-packfile/&pic=">
+            <box-icon name='weibo' type='logo'></box-icon>
+        </a>
+    </section> -->
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments">
+    <div class="giscus"></div>
+</section>
+<script src="https://giscus.app/client.js"
+    data-repo="ahern88/giscus_repo"
+    data-repo-id="R_kgDOHGTAUg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOHGTAUs4COWxa"
+    data-input-position="top"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-theme="light"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <box-icon name='search' color="#3c4859"></box-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TIDB/" rel="tag">TIDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2022/04/23/git-restore-worktree-by-packfile/">使用pack文件恢复Git工作区</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/18/git-commands/">Git命令集合</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/10/tidb-architecture-philosophy/">TiDB的架构哲学与思考</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/09/run-gdb-on-macos/">在MacOS上使用GDB调试C程序</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/05/git-in-depth-study/">一文深入浅出学习Git工具</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            ahern88的技术小站 &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1650727145027.js"></script>
+
+
+<script src="/dist/custom.js?1650727145027.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Baidu Analytics-->
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f6e09ac3389fb861bbfa7bbceb2a5698";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</body>
+
+</html>

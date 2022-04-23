@@ -9,7 +9,8 @@
     <title>TiDB的架构哲学与思考 | ahern88的技术小站</title>
 
     <meta name="description" content="&lt;p&gt;TiDB是PingCAP公司研发的一款新一代的分布式数据库，能应对OLTP与OLAP等混合场景的应用，在各大公司应用的非常广泛，让我们可以抛弃传统的分库分表等方案，分享来自PingCAP的首席架构师兼CTO&lt;/p&gt;
-&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
+&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;p&gt;TODO&lt;/p&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV19q4y1n7D2&#34;&gt;【Meetup 分享】TiDB的架构哲学与场景思考&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=xAiuLJtCZOg&#34;&gt;NewSQL大神黄东旭：从0到1，如何设计一个分布式数据库&lt;/a&gt;&lt;/li&gt;
@@ -23,7 +24,8 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content= "TiDB的架构哲学与思考 | ahern88的技术小站"  />
     <meta property="og:description" content= "&lt;p&gt;TiDB是PingCAP公司研发的一款新一代的分布式数据库，能应对OLTP与OLAP等混合场景的应用，在各大公司应用的非常广泛，让我们可以抛弃传统的分库分表等方案，分享来自PingCAP的首席架构师兼CTO&lt;/p&gt;
-&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
+&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;p&gt;TODO&lt;/p&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV19q4y1n7D2&#34;&gt;【Meetup 分享】TiDB的架构哲学与场景思考&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=xAiuLJtCZOg&#34;&gt;NewSQL大神黄东旭：从0到1，如何设计一个分布式数据库&lt;/a&gt;&lt;/li&gt;
@@ -34,7 +36,8 @@
     <meta property="article:author" content="ahern88" />
     <meta property="article:publisher" content="" />
     <meta property="og:description" content="&lt;p&gt;TiDB是PingCAP公司研发的一款新一代的分布式数据库，能应对OLTP与OLAP等混合场景的应用，在各大公司应用的非常广泛，让我们可以抛弃传统的分库分表等方案，分享来自PingCAP的首席架构师兼CTO&lt;/p&gt;
-&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
+&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;p&gt;TODO&lt;/p&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV19q4y1n7D2&#34;&gt;【Meetup 分享】TiDB的架构哲学与场景思考&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=xAiuLJtCZOg&#34;&gt;NewSQL大神黄东旭：从0到1，如何设计一个分布式数据库&lt;/a&gt;&lt;/li&gt;
@@ -42,7 +45,8 @@
 &lt;/ul&gt;" />
     <meta name="twitter:title" content="TiDB的架构哲学与思考 | ahern88的技术小站"/>
     <meta name="twitter:description" content="&lt;p&gt;TiDB是PingCAP公司研发的一款新一代的分布式数据库，能应对OLTP与OLAP等混合场景的应用，在各大公司应用的非常广泛，让我们可以抛弃传统的分库分表等方案，分享来自PingCAP的首席架构师兼CTO&lt;/p&gt;
-&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
+&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;p&gt;TODO&lt;/p&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV19q4y1n7D2&#34;&gt;【Meetup 分享】TiDB的架构哲学与场景思考&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=xAiuLJtCZOg&#34;&gt;NewSQL大神黄东旭：从0到1，如何设计一个分布式数据库&lt;/a&gt;&lt;/li&gt;
@@ -51,7 +55,8 @@
     <script type="application/ld+json">
         {
             "description": "&lt;p&gt;TiDB是PingCAP公司研发的一款新一代的分布式数据库，能应对OLTP与OLAP等混合场景的应用，在各大公司应用的非常广泛，让我们可以抛弃传统的分库分表等方案，分享来自PingCAP的首席架构师兼CTO&lt;/p&gt;
-&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
+&lt;h2 id=&#34;分享内容&#34;&gt;&lt;a href=&#34;#分享内容&#34; class=&#34;headerlink&#34; title=&#34;分享内容&#34;&gt;&lt;/a&gt;分享内容&lt;/h2&gt;&lt;h3 id=&#34;可插拔的存储&#34;&gt;&lt;a href=&#34;#可插拔的存储&#34; class=&#34;headerlink&#34; title=&#34;可插拔的存储&#34;&gt;&lt;/a&gt;可插拔的存储&lt;/h3&gt;&lt;p&gt;TODO&lt;/p&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#参考资料&#34; class=&#34;headerlink&#34; title=&#34;参考资料&#34;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;p&gt;本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV19q4y1n7D2&#34;&gt;【Meetup 分享】TiDB的架构哲学与场景思考&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=xAiuLJtCZOg&#34;&gt;NewSQL大神黄东旭：从0到1，如何设计一个分布式数据库&lt;/a&gt;&lt;/li&gt;
@@ -100,11 +105,11 @@
     
 
     
-<link rel="stylesheet" href="/dist/build.css?v=1646451311888.css">
+<link rel="stylesheet" href="/dist/build.css?v=1650727145027.css">
 
 
     
-<link rel="stylesheet" href="/dist/custom.css?v=1646451311888.css">
+<link rel="stylesheet" href="/dist/custom.css?v=1650727145027.css">
 
 
     <script>
@@ -195,7 +200,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-cl23iov5a00064owwa5p9bri2" class="article article-type-post" itemscope
+    <article id="post-cl2c0eksd000budwwf32abh1d" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -242,7 +247,8 @@
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <p>TiDB是PingCAP公司研发的一款新一代的分布式数据库，能应对OLTP与OLAP等混合场景的应用，在各大公司应用的非常广泛，让我们可以抛弃传统的分库分表等方案，分享来自PingCAP的首席架构师兼CTO</p>
-<h2 id="分享内容"><a href="#分享内容" class="headerlink" title="分享内容"></a>分享内容</h2><h3 id="可插拔的存储"><a href="#可插拔的存储" class="headerlink" title="可插拔的存储"></a>可插拔的存储</h3><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。</p>
+<h2 id="分享内容"><a href="#分享内容" class="headerlink" title="分享内容"></a>分享内容</h2><h3 id="可插拔的存储"><a href="#可插拔的存储" class="headerlink" title="可插拔的存储"></a>可插拔的存储</h3><p>TODO</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19q4y1n7D2">【Meetup 分享】TiDB的架构哲学与场景思考</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xAiuLJtCZOg">NewSQL大神黄东旭：从0到1，如何设计一个分布式数据库</a></li>
@@ -388,6 +394,10 @@
       <ul>
         
           <li>
+            <a href="/2022/04/23/git-restore-worktree-by-packfile/">使用pack文件恢复Git工作区</a>
+          </li>
+        
+          <li>
             <a href="/2022/04/18/git-commands/">Git命令集合</a>
           </li>
         
@@ -401,10 +411,6 @@
         
           <li>
             <a href="/2022/04/05/git-in-depth-study/">一文深入浅出学习Git工具</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/31/index/">从零开始使用GitHub+Hexo搭建个人博客</a>
           </li>
         
       </ul>
@@ -441,10 +447,10 @@
 
 
 
-<script src="/dist/build.js?1646451311888.js"></script>
+<script src="/dist/build.js?1650727145027.js"></script>
 
 
-<script src="/dist/custom.js?1646451311888.js"></script>
+<script src="/dist/custom.js?1650727145027.js"></script>
 
 
 
