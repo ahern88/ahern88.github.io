@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>ahern88的技术小站</title>
+
+    <meta name="description" content="ahern88的技术小站">
+    <meta name="keywords" content="JAVA,架构,微服务,分布式,足球,C罗">
+
+    
+
+
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://ahern88.github.io/index.html" />
+    <meta property="og:site_name" content="ahern88" />
+    <meta property="article:publisher" content="" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "",
+            "description": "",
+            "publisher": {
+                "@type": "Organization",
+                "name": "ahern88"
+            },
+        }
+    </script>
+
+
+    
+
+    
+    <meta property="algolia:search" data-application-id="J3Z27P68M3" data-api-key="4eaf4c93378e153e99394f6d0baecf21" data-index-name="post_index">
+    
+
+    
+
+    
+    <link rel="icon" href="./images/favicon.ico">
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1650731893283.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1650731893283.css">
+
+
+    <script>
+        window.isPost = false
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>ahern88的技术小站</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">文章</a>
+                
+                <a href="/aboutme">关于我</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="https://www.github.com/ahern88">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="https://twitter.com/ailinxi2015">
+        <box-icon type='logo' name='twitter'></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">文章</a>
+                    
+                    <a href="/aboutme">关于我</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="index">
+  
+    
+      <article
+id="post-RAG-技术发展与现状"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2026/03/06/RAG-%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E4%B8%8E%E7%8E%B0%E7%8A%B6/">RAG 技术发展与现状</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>RAG（Retrieval-Augmented Generation，检索增强生成）是近年来自然语言处理领域最重要的技术突破之一。它将信息检索与文本生成相结合，有效解决了大语言模型的知识更新、事实准确性和幻觉问题。本文将详细介绍 RAG 技术的发展历程、核心原理、当前现状以及未来趋势。</p>
+<h2 id="什么是-RAG？"><a href="#什么是-RAG？" class="headerlink" title="什么是 RAG？"></a>什么是 RAG？</h2><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>RAG 是一种将<strong>检索系统</strong>与<strong>生成模型</strong>相结合的混合架构：</p>
+<pre class="language-none"><code class="language-none">用户查询 → 检索相关文档 → 增强提示 → 生成模型 → 输出答案</code></pre>
+
+<h3 id="为什么需要-RAG？"><a href="#为什么需要-RAG？" class="headerlink" title="为什么需要 RAG？"></a>为什么需要 RAG？</h3><p>大语言模型（LLM）虽然强大，但存在以下局限：</p>
+<ol>
+<li><strong>知识截止</strong> - 训练数据有截止时间，无法获取最新信息</li>
+<li><strong>事实幻觉</strong> - 可能生成看似合理但实际错误的内容</li>
+<li><strong>领域知识缺乏</strong> - 对特定领域的专业知识掌握有限</li>
+<li><strong>无法追溯</strong> - 难以提供答案的来源和依据</li>
+</ol>
+<p>RAG 通过引入外部知识库，有效弥补了这些不足。</p>
+<h2 id="技术发展历程"><a href="#技术发展历程" class="headerlink" title="技术发展历程"></a>技术发展历程</h2><h3 id="第一阶段：早期探索（2020-年前）"><a href="#第一阶段：早期探索（2020-年前）" class="headerlink" title="第一阶段：早期探索（2020 年前）"></a>第一阶段：早期探索（2020 年前）</h3><h4 id="OpenAI-的开创性工作"><a href="#OpenAI-的开创性工作" class="headerlink" title="OpenAI 的开创性工作"></a>OpenAI 的开创性工作</h4><p>2020 年，Facebook AI Research（现 Meta AI）发表了里程碑论文：</p>
+<blockquote>
+<p><strong>《Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks》</strong></p>
+<ul>
+<li>作者：Patrick Lewis 等</li>
+<li>发表：NeurIPS 2020</li>
+<li>核心贡献：首次正式提出 RAG 概念</li>
+</ul>
+</blockquote>
+<p><strong>技术特点：</strong></p>
+<ul>
+<li>结合 BERT 检索器 + BART 生成器</li>
+<li>在开放域问答任务上取得 SOTA</li>
+<li>证明了检索 + 生成的有效性</li>
+</ul>
+<h3 id="第二阶段：技术成熟（2021-2023）"><a href="#第二阶段：技术成熟（2021-2023）" class="headerlink" title="第二阶段：技术成熟（2021-2023）"></a>第二阶段：技术成熟（2021-2023）</h3><h4 id="关键进展"><a href="#关键进展" class="headerlink" title="关键进展"></a>关键进展</h4><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>技术&#x2F;产品</th>
+<th>贡献</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td>DPR (Dense Passage Retrieval)</td>
+<td>稠密检索技术成熟</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>LangChain</td>
+<td>RAG 应用框架</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>LlamaIndex</td>
+<td>数据索引与检索</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>GPT + 插件</td>
+<td>商业应用落地</td>
+</tr>
+</tbody></table>
+<h4 id="核心技术突破"><a href="#核心技术突破" class="headerlink" title="核心技术突破"></a>核心技术突破</h4><p><strong>1. 检索技术改进</strong></p>
+<pre class="language-none"><code class="language-none">传统检索 → 稠密检索 → 混合检索
+  ↓           ↓          ↓
+BM25     Dense DPR   BM25 + Vector</code></pre>
+
+<p><strong>2. 生成模型升级</strong></p>
+<pre class="language-none"><code class="language-none">BART → T5 → GPT 系列 → Claude → Llama</code></pre>
+
+<p><strong>3. 向量数据库兴起</strong></p>
+<ul>
+<li>Pinecone</li>
+<li>Weaviate</li>
+<li>Milvus</li>
+<li>Chroma</li>
+<li>Qdrant</li>
+</ul>
+<h3 id="第三阶段：大规模应用（2023-2024）"><a href="#第三阶段：大规模应用（2023-2024）" class="headerlink" title="第三阶段：大规模应用（2023-2024）"></a>第三阶段：大规模应用（2023-2024）</h3><h4 id="企业级应用爆发"><a href="#企业级应用爆发" class="headerlink" title="企业级应用爆发"></a>企业级应用爆发</h4><p>2023 年，随着 GPT-4 等模型的普及，RAG 技术迎来爆发：</p>
+<p><strong>典型应用场景：</strong></p>
+<ol>
+<li><p><strong>企业知识库问答</strong></p>
+<ul>
+<li>内部文档检索</li>
+<li>客服自动回复</li>
+<li>员工培训助手</li>
+</ul>
+</li>
+<li><p><strong>垂直领域应用</strong></p>
+<ul>
+<li>法律文档分析</li>
+<li>医疗知识问答</li>
+<li>金融研报分析</li>
+</ul>
+</li>
+<li><p><strong>个人知识管理</strong></p>
+<ul>
+<li>笔记检索增强</li>
+<li>个人 AI 助手</li>
+<li>学习辅导系统</li>
+</ul>
+</li>
+</ol>
+<h4 id="技术生态成熟"><a href="#技术生态成熟" class="headerlink" title="技术生态成熟"></a>技术生态成熟</h4><pre class="language-none"><code class="language-none">┌─────────────────────────────────────────┐
+│            RAG 技术栈（2024）            │
+├─────────────────────────────────────────┤
+│ 应用层   │ LangChain, LlamaIndex       │
+│ 模型层   │ GPT-4, Claude, Llama        │
+│ 检索层   │ DPR, BM25, 混合检索          │
+│ 存储层   │ Pinecone, Milvus, Weaviate  │
+│ 数据层   │ PDF, Word, Markdown, HTML   │
+└─────────────────────────────────────────┘</code></pre>
+
+<h2 id="核心技术原理"><a href="#核心技术原理" class="headerlink" title="核心技术原理"></a>核心技术原理</h2><h3 id="RAG-架构详解"><a href="#RAG-架构详解" class="headerlink" title="RAG 架构详解"></a>RAG 架构详解</h3><pre class="language-none"><code class="language-none">                ┌──────────────┐
+用户查询 ──────→│  查询理解     │
+                └──────┬───────┘
+                       ↓
+          ┌────────────────────┐
+          │    查询改写&#x2F;扩展    │
+          └────────┬───────────┘
+                   ↓
+    ┌──────────────────────────┐
+    │      向量检索引擎         │
+    │  ┌────────┐  ┌────────┐  │
+    │  │ 向量库  │  │ 关键词  │  │
+    │  └────────┘  └────────┘  │
+    └────────┬─────────────────┘
+             ↓
+    ┌─────────────────┐
+    │   结果重排序     │
+    └────────┬────────┘
+             ↓
+    ┌─────────────────┐
+    │  上下文组装      │
+    └────────┬────────┘
+             ↓
+    ┌─────────────────┐
+    │   LLM 生成答案    │
+    └────────┬────────┘
+             ↓
+          输出答案</code></pre>
+
+<h3 id="关键技术组件"><a href="#关键技术组件" class="headerlink" title="关键技术组件"></a>关键技术组件</h3><h4 id="1-文档处理与分块（Chunking）"><a href="#1-文档处理与分块（Chunking）" class="headerlink" title="1. 文档处理与分块（Chunking）"></a>1. 文档处理与分块（Chunking）</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 常见分块策略</span>
+<span class="token operator">-</span> 固定长度分块（<span class="token number">500</span><span class="token operator">-</span><span class="token number">1000</span> tokens）
+<span class="token operator">-</span> 语义分块（按段落、主题）
+<span class="token operator">-</span> 递归分块（层次化切分）
+<span class="token operator">-</span> 滑动窗口（重叠分块）</code></pre>
+
+<p><strong>最佳实践：</strong></p>
+<ul>
+<li>块大小：500-1000 tokens</li>
+<li>重叠：50-100 tokens</li>
+<li>保持语义完整性</li>
+</ul>
+<h4 id="2-向量化（Embedding）"><a href="#2-向量化（Embedding）" class="headerlink" title="2. 向量化（Embedding）"></a>2. 向量化（Embedding）</h4><p><strong>主流 Embedding 模型：</strong></p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>维度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text-embedding-ada-002</td>
+<td>1536</td>
+<td>OpenAI，效果好</td>
+</tr>
+<tr>
+<td>BGE</td>
+<td>1024</td>
+<td>中文优化</td>
+</tr>
+<tr>
+<td>M3E</td>
+<td>768</td>
+<td>中文开源</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>1024</td>
+<td>多语言</td>
+</tr>
+</tbody></table>
+<h4 id="3-检索策略"><a href="#3-检索策略" class="headerlink" title="3. 检索策略"></a>3. 检索策略</h4><p><strong>单一检索：</strong></p>
+<ul>
+<li>向量检索（语义相似）</li>
+<li>关键词检索（精确匹配）</li>
+</ul>
+<p><strong>混合检索（推荐）：</strong></p>
+<pre class="language-none"><code class="language-none">最终分数 &#x3D; α × 向量分数 + (1-α) × 关键词分数</code></pre>
+
+<h4 id="4-上下文优化"><a href="#4-上下文优化" class="headerlink" title="4. 上下文优化"></a>4. 上下文优化</h4><p><strong>挑战：</strong></p>
+<ul>
+<li>LLM 上下文窗口有限</li>
+<li>过多信息影响生成质量</li>
+<li>关键信息可能被淹没</li>
+</ul>
+<p><strong>解决方案：</strong></p>
+<ul>
+<li>相关性排序</li>
+<li>信息压缩</li>
+<li>层次化检索</li>
+</ul>
+<h2 id="当前现状（2026-年）"><a href="#当前现状（2026-年）" class="headerlink" title="当前现状（2026 年）"></a>当前现状（2026 年）</h2><h3 id="技术成熟度"><a href="#技术成熟度" class="headerlink" title="技术成熟度"></a>技术成熟度</h3><h4 id="已解决的问题-✅"><a href="#已解决的问题-✅" class="headerlink" title="已解决的问题 ✅"></a>已解决的问题 ✅</h4><ol>
+<li><p><strong>基础架构成熟</strong></p>
+<ul>
+<li>检索 + 生成的技术路线清晰</li>
+<li>开源生态完善</li>
+<li>云服务普及</li>
+</ul>
+</li>
+<li><p><strong>工具链完善</strong></p>
+<ul>
+<li>LangChain、LlamaIndex 等框架成熟</li>
+<li>向量数据库选择丰富</li>
+<li>监控和评估工具出现</li>
+</ul>
+</li>
+<li><p><strong>最佳实践形成</strong></p>
+<ul>
+<li>分块策略有指导原则</li>
+<li>检索优化有方法论</li>
+<li>评估指标标准化</li>
+</ul>
+</li>
+</ol>
+<h4 id="待解决的挑战-⚠️"><a href="#待解决的挑战-⚠️" class="headerlink" title="待解决的挑战 ⚠️"></a>待解决的挑战 ⚠️</h4><ol>
+<li><p><strong>检索准确性</strong></p>
+<ul>
+<li>复杂查询理解不足</li>
+<li>多跳推理能力有限</li>
+<li>跨文档推理困难</li>
+</ul>
+</li>
+<li><p><strong>生成质量</strong></p>
+<ul>
+<li>信息整合不够流畅</li>
+<li>引用准确性待提高</li>
+<li>长文本生成不稳定</li>
+</ul>
+</li>
+<li><p><strong>性能优化</strong></p>
+<ul>
+<li>检索延迟问题</li>
+<li>大规模索引成本</li>
+<li>实时性要求</li>
+</ul>
+</li>
+</ol>
+<h3 id="主流解决方案对比"><a href="#主流解决方案对比" class="headerlink" title="主流解决方案对比"></a>主流解决方案对比</h3><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LangChain</td>
+<td>生态丰富，灵活</td>
+<td>学习曲线陡</td>
+<td>复杂应用</td>
+</tr>
+<tr>
+<td>LlamaIndex</td>
+<td>专注 RAG，易用</td>
+<td>功能相对单一</td>
+<td>知识问答</td>
+</tr>
+<tr>
+<td>Dify</td>
+<td>可视化，开箱即用</td>
+<td>定制性有限</td>
+<td>快速原型</td>
+</tr>
+<tr>
+<td>FastGPT</td>
+<td>中文友好</td>
+<td>社区较小</td>
+<td>中文应用</td>
+</tr>
+</tbody></table>
+<h3 id="行业应用案例"><a href="#行业应用案例" class="headerlink" title="行业应用案例"></a>行业应用案例</h3><h4 id="1-客服系统"><a href="#1-客服系统" class="headerlink" title="1. 客服系统"></a>1. 客服系统</h4><ul>
+<li><strong>公司</strong>：某电商平台</li>
+<li><strong>效果</strong>：自动回复率提升至 85%</li>
+<li><strong>技术</strong>：RAG + 工单系统</li>
+</ul>
+<h4 id="2-法律助手"><a href="#2-法律助手" class="headerlink" title="2. 法律助手"></a>2. 法律助手</h4><ul>
+<li><strong>公司</strong>：某律师事务所</li>
+<li><strong>效果</strong>：案例检索时间减少 90%</li>
+<li><strong>技术</strong>：RAG + 法律数据库</li>
+</ul>
+<h4 id="3-医疗问答"><a href="#3-医疗问答" class="headerlink" title="3. 医疗问答"></a>3. 医疗问答</h4><ul>
+<li><strong>公司</strong>：某互联网医院</li>
+<li><strong>效果</strong>：初步诊断准确率 92%</li>
+<li><strong>技术</strong>：RAG + 医学知识库</li>
+</ul>
+<h2 id="高级技术与优化"><a href="#高级技术与优化" class="headerlink" title="高级技术与优化"></a>高级技术与优化</h2><h3 id="Advanced-RAG-技术"><a href="#Advanced-RAG-技术" class="headerlink" title="Advanced RAG 技术"></a>Advanced RAG 技术</h3><h4 id="1-查询改写（Query-Rewriting）"><a href="#1-查询改写（Query-Rewriting）" class="headerlink" title="1. 查询改写（Query Rewriting）"></a>1. 查询改写（Query Rewriting）</h4><pre class="language-none"><code class="language-none">原始查询 → 改写&#x2F;扩展 → 多个查询 → 检索 → 合并结果</code></pre>
+
+<p><strong>技术：</strong></p>
+<ul>
+<li>HyDE（假设性文档嵌入）</li>
+<li>查询扩展</li>
+<li>子查询分解</li>
+</ul>
+<h4 id="2-多跳检索（Multi-hop-Retrieval）"><a href="#2-多跳检索（Multi-hop-Retrieval）" class="headerlink" title="2. 多跳检索（Multi-hop Retrieval）"></a>2. 多跳检索（Multi-hop Retrieval）</h4><pre class="language-none"><code class="language-none">查询 → 检索文档 1 → 提取信息 → 新查询 → 检索文档 2 → ...</code></pre>
+
+<p><strong>适用场景：</strong></p>
+<ul>
+<li>需要多步推理的问题</li>
+<li>信息分散在多个文档</li>
+</ul>
+<h4 id="3-自反思-RAG（Self-Reflective-RAG）"><a href="#3-自反思-RAG（Self-Reflective-RAG）" class="headerlink" title="3. 自反思 RAG（Self-Reflective RAG）"></a>3. 自反思 RAG（Self-Reflective RAG）</h4><pre class="language-none"><code class="language-none">生成答案 → 检查事实 → 发现不足 → 重新检索 → 修正答案</code></pre>
+
+<p><strong>优势：</strong></p>
+<ul>
+<li>减少幻觉</li>
+<li>提高准确性</li>
+<li>可追溯性强</li>
+</ul>
+<h3 id="性能优化策略"><a href="#性能优化策略" class="headerlink" title="性能优化策略"></a>性能优化策略</h3><h4 id="1-缓存优化"><a href="#1-缓存优化" class="headerlink" title="1. 缓存优化"></a>1. 缓存优化</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 查询缓存</span>
+<span class="token keyword">if</span> query <span class="token keyword">in</span> cache<span class="token punctuation">:</span>
+    <span class="token keyword">return</span> cache<span class="token punctuation">[</span>query<span class="token punctuation">]</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    result <span class="token operator">=</span> rag_search<span class="token punctuation">(</span>query<span class="token punctuation">)</span>
+    cache<span class="token punctuation">[</span>query<span class="token punctuation">]</span> <span class="token operator">=</span> result</code></pre>
+
+<h4 id="2-索引优化"><a href="#2-索引优化" class="headerlink" title="2. 索引优化"></a>2. 索引优化</h4><ul>
+<li>增量索引更新</li>
+<li>分布式索引</li>
+<li>分层索引</li>
+</ul>
+<h4 id="3-批处理"><a href="#3-批处理" class="headerlink" title="3. 批处理"></a>3. 批处理</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 批量检索</span>
+queries <span class="token operator">=</span> <span class="token punctuation">[</span>q1<span class="token punctuation">,</span> q2<span class="token punctuation">,</span> q3<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
+results <span class="token operator">=</span> vector_db<span class="token punctuation">.</span>search_batch<span class="token punctuation">(</span>queries<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h2><h3 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h3><h4 id="1-检索质量"><a href="#1-检索质量" class="headerlink" title="1. 检索质量"></a>1. 检索质量</h4><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Recall@K</td>
+<td>前 K 个结果的相关性</td>
+</tr>
+<tr>
+<td>MRR</td>
+<td>平均倒数排名</td>
+</tr>
+<tr>
+<td>NDCG</td>
+<td>归一化折损累计增益</td>
+</tr>
+</tbody></table>
+<h4 id="2-生成质量"><a href="#2-生成质量" class="headerlink" title="2. 生成质量"></a>2. 生成质量</h4><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>准确性</td>
+<td>答案是否正确</td>
+</tr>
+<tr>
+<td>完整性</td>
+<td>是否覆盖关键信息</td>
+</tr>
+<tr>
+<td>流畅性</td>
+<td>语言是否自然</td>
+</tr>
+<tr>
+<td>引用准确</td>
+<td>来源是否正确</td>
+</tr>
+</tbody></table>
+<h4 id="3-端到端评估"><a href="#3-端到端评估" class="headerlink" title="3. 端到端评估"></a>3. 端到端评估</h4><ul>
+<li><strong>RAGAS</strong> - RAG 评估框架</li>
+<li><strong>TruLens</strong> - 追踪和评估</li>
+<li><strong>DeepEval</strong> - 综合评估工具</li>
+</ul>
+<h3 id="评估数据集"><a href="#评估数据集" class="headerlink" title="评估数据集"></a>评估数据集</h3><table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>领域</th>
+<th>规模</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SQuAD</td>
+<td>通用问答</td>
+<td>10 万 +</td>
+</tr>
+<tr>
+<td>HotpotQA</td>
+<td>多跳推理</td>
+<td>11 万 +</td>
+</tr>
+<tr>
+<td>MS MARCO</td>
+<td>搜索问答</td>
+<td>百万 +</td>
+</tr>
+<tr>
+<td>Natural Questions</td>
+<td>开放问答</td>
+<td>30 万 +</td>
+</tr>
+</tbody></table>
+<h2 id="未来趋势"><a href="#未来趋势" class="headerlink" title="未来趋势"></a>未来趋势</h2><h3 id="短期趋势（2026-2027）"><a href="#短期趋势（2026-2027）" class="headerlink" title="短期趋势（2026-2027）"></a>短期趋势（2026-2027）</h3><ol>
+<li><p><strong>多模态 RAG</strong></p>
+<ul>
+<li>图像 + 文本联合检索</li>
+<li>视频内容理解</li>
+<li>音频信息整合</li>
+</ul>
+</li>
+<li><p><strong>Agent + RAG</strong></p>
+<ul>
+<li>自主检索决策</li>
+<li>多工具协同</li>
+<li>任务自动化</li>
+</ul>
+</li>
+<li><p><strong>实时 RAG</strong></p>
+<ul>
+<li>流式数据处理</li>
+<li>低延迟检索</li>
+<li>动态知识更新</li>
+</ul>
+</li>
+</ol>
+<h3 id="长期趋势（2027-）"><a href="#长期趋势（2027-）" class="headerlink" title="长期趋势（2027+）"></a>长期趋势（2027+）</h3><ol>
+<li><p><strong>世界模型集成</strong></p>
+<ul>
+<li>内部知识 + 外部检索</li>
+<li>推理能力增强</li>
+<li>常识理解</li>
+</ul>
+</li>
+<li><p><strong>个性化 RAG</strong></p>
+<ul>
+<li>用户画像整合</li>
+<li>上下文感知</li>
+<li>自适应检索</li>
+</ul>
+</li>
+<li><p><strong>可信 RAG</strong></p>
+<ul>
+<li>可解释性增强</li>
+<li>事实核查</li>
+<li>偏见检测</li>
+</ul>
+</li>
+</ol>
+<h2 id="实践建议"><a href="#实践建议" class="headerlink" title="实践建议"></a>实践建议</h2><h3 id="入门路线"><a href="#入门路线" class="headerlink" title="入门路线"></a>入门路线</h3><pre class="language-none"><code class="language-none">1. 学习基础
+   ↓
+2. 搭建简单 RAG
+   ↓
+3. 优化检索
+   ↓
+4. 优化生成
+   ↓
+5. 评估迭代</code></pre>
+
+<h3 id="技术选型建议"><a href="#技术选型建议" class="headerlink" title="技术选型建议"></a>技术选型建议</h3><p><strong>小型项目：</strong></p>
+<ul>
+<li>框架：LangChain 或 LlamaIndex</li>
+<li>向量库：Chroma 或 FAISS</li>
+<li>模型：开源模型（Llama、ChatGLM）</li>
+</ul>
+<p><strong>中型项目：</strong></p>
+<ul>
+<li>框架：LangChain</li>
+<li>向量库：Pinecone 或 Weaviate</li>
+<li>模型：API + 开源混合</li>
+</ul>
+<p><strong>大型项目：</strong></p>
+<ul>
+<li>框架：自研 + 开源</li>
+<li>向量库：Milvus 或 Qdrant（分布式）</li>
+<li>模型：私有化部署</li>
+</ul>
+<h3 id="常见陷阱"><a href="#常见陷阱" class="headerlink" title="常见陷阱"></a>常见陷阱</h3><p>❌ <strong>避免：</strong></p>
+<ul>
+<li>分块过大或过小</li>
+<li>只使用向量检索</li>
+<li>忽视评估环节</li>
+<li>过度依赖单一模型</li>
+</ul>
+<p>✅ <strong>推荐：</strong></p>
+<ul>
+<li>混合检索策略</li>
+<li>持续评估优化</li>
+<li>关注用户反馈</li>
+<li>保持技术更新</li>
+</ul>
+<h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://python.langchain.com/">LangChain 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.llamaindex.ai/">LlamaIndex 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/">Hugging Face</a></li>
+</ul>
+<h3 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.11401">RAG 原论文</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.04906">DPR 论文</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.10997">Advanced RAG 综述</a></li>
+</ul>
+<h3 id="实践教程"><a href="#实践教程" class="headerlink" title="实践教程"></a>实践教程</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://liaokong.gitbook.io/llm-kai-fa-jiao-cheng">LangChain 中文教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/liucongg/RAG">RAG 实战课程</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cwida/awesome-vector-databases">向量数据库对比</a></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>RAG 技术经过 5 年的发展，已经从学术研究走向大规模商业应用。它有效解决了大语言模型的知识更新、事实准确性等核心问题，成为企业 AI 应用的标准架构之一。</p>
+<p><strong>核心价值：</strong></p>
+<ul>
+<li>✅ 解决知识截止问题</li>
+<li>✅ 减少模型幻觉</li>
+<li>✅ 提供可追溯答案</li>
+<li>✅ 降低训练成本</li>
+</ul>
+<p><strong>未来展望：</strong></p>
+<ul>
+<li>🔮 多模态融合</li>
+<li>🔮 Agent 自主检索</li>
+<li>🔮 实时知识更新</li>
+<li>🔮 个性化体验</li>
+</ul>
+<p>对于开发者来说，掌握 RAG 技术已经成为 AI 时代的必备技能。建议从实际项目入手，在实践中学习和优化，跟上这个快速发展的领域。</p>
+<hr>
+<p><em>📝 2026-03-06 撰写</em></p>
+<p><em>🦞 小艾的龙虾 整理</em></p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>Lewis P, et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS 2020.</li>
+<li>Karpukhin V, et al. Dense Passage Retrieval for Open-Domain Question Answering. EMNLP 2020.</li>
+<li>Gao Y, et al. Retrieval-Augmented Generation for Large Language Models: A Survey. arXiv 2023.</li>
+<li>LangChain Documentation. <a target="_blank" rel="noopener" href="https://python.langchain.com/">https://python.langchain.com/</a></li>
+<li>LlamaIndex Documentation. <a target="_blank" rel="noopener" href="https://docs.llamaindex.ai/">https://docs.llamaindex.ai/</a></li>
+</ol>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2026-03-06T09:20:00.000Z" itemprop="datePublished">2026-03-06</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/">技术教程</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RAG/" rel="tag">RAG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%8C%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90%EF%BC%8CAI/" rel="tag">大语言模型，检索增强生成，AI</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-transcation-study-all"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/04/26/transcation-study-all/">事务学习合集</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>从JDBC的事务测试，到Spring的事务封装，XA事务测试，消息事务，TCC尝试，SAGA，到阿里分布式事务框架Seata的剖析。</p>
+<h2 id="事务基础"><a href="#事务基础" class="headerlink" title="事务基础"></a>事务基础</h2><h3 id="什么是事务？"><a href="#什么是事务？" class="headerlink" title="什么是事务？"></a>什么是事务？</h3><p>事务的核心就是 锁与并发，通过锁实现数据的原子更新与一致性保证，并保证在并发的时候实现ACID等数据库特性。</p>
+<h2 id="单机事务"><a href="#单机事务" class="headerlink" title="单机事务"></a>单机事务</h2><ul>
+<li>ACID的实现</li>
+<li>事务的隔离机制</li>
+<li>多版本并发控制</li>
+</ul>
+<h2 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h2><ul>
+<li><p>如何实现XA事务？</p>
+</li>
+<li><p>使用消息中间件实现最终一致性事务</p>
+</li>
+<li><p>使用TCC实现分布式事务</p>
+</li>
+<li><p>使用SAGA模式实现分布式事务</p>
+</li>
+<li><p>使用Seata的多种模式实现分布式事务</p>
+</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>事务测试源代码：<a target="_blank" rel="noopener" href="https://github.com/ahern88/transaction-test">https://github.com/ahern88/transaction-test</a></li>
+<li>Seata源码：<a target="_blank" rel="noopener" href="https://github.com/seata/seata">https://github.com/seata/seata</a></li>
+<li>Seata示例：<a target="_blank" rel="noopener" href="https://github.com/seata/seata-samples">https://github.com/seata/seata-samples</a></li>
+</ul>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-04-26T13:22:18.000Z" itemprop="datePublished">2022-04-26</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-docker-install-mysql"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/04/26/docker-install-mysql/">使用Docker安装MySQL</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p>一定要去官网下载Docker，目前一般会安装Docker Destop版本，也自带命令行工具。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">docker-desktop</a></p>
+<p>安装后检查下docker pull是否能从hub上拉取镜像：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">➜ <span class="token function">docker</span> pull mysql:latest
+Error response from daemon: Get <span class="token string">"https://registry-1.docker.io/v2/"</span><span class="token builtin class-name">:</span> EOF</code></pre>
+
+<p>很遗憾，直接报错了，一般这个是网络问题，使用<code>dig @114.114.114.114 registry-1.docker.io</code> 查看DNS解析情况</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">➜ <span class="token function">dig</span> @114.114.114.114 registry-1.docker.io
+
+<span class="token punctuation">;</span> <span class="token operator">&lt;&lt;</span><span class="token operator">>></span> DiG <span class="token number">9.10</span>.6 <span class="token operator">&lt;&lt;</span><span class="token operator">>></span> @114.114.114.114 registry-1.docker.io
+<span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">1</span> server found<span class="token punctuation">)</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span> global options: +cmd
+<span class="token punctuation">;</span><span class="token punctuation">;</span> Got answer:
+<span class="token punctuation">;</span><span class="token punctuation">;</span> -<span class="token operator">>></span>HEADER<span class="token operator">&lt;&lt;-</span> opcode: QUERY, status: NOERROR, id: <span class="token number">17618</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span> flags: qr rd ra<span class="token punctuation">;</span> QUERY: <span class="token number">1</span>, ANSWER: <span class="token number">8</span>, AUTHORITY: <span class="token number">0</span>, ADDITIONAL: <span class="token number">1</span>
+
+<span class="token punctuation">;</span><span class="token punctuation">;</span> OPT PSEUDOSECTION:
+<span class="token punctuation">;</span> EDNS: version: <span class="token number">0</span>, flags:<span class="token punctuation">;</span> udp: <span class="token number">512</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span> QUESTION SECTION:
+<span class="token punctuation">;</span>registry-1.docker.io.		IN	A
+
+<span class="token punctuation">;</span><span class="token punctuation">;</span> ANSWER SECTION:
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">52.21</span>.28.242
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">52.5</span>.157.114
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">34.230</span>.238.103
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">54.197</span>.112.205
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">34.237</span>.244.67
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">34.236</span>.198.185
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">54.85</span>.133.123
+registry-1.docker.io.	<span class="token number">53</span>	IN	A	<span class="token number">52.202</span>.132.224
+
+<span class="token punctuation">;</span><span class="token punctuation">;</span> Query time: <span class="token number">10</span> msec
+<span class="token punctuation">;</span><span class="token punctuation">;</span> SERVER: <span class="token number">114.114</span>.114.114<span class="token comment">#53(114.114.114.114)</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span> WHEN: Tue Apr <span class="token number">26</span> <span class="token number">20</span>:43:45 CST <span class="token number">2022</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span> MSG SIZE  rcvd: <span class="token number">177</span></code></pre>
+
+<p>选取一个一个DNS记录，配置配置hosts，在<code>/etc/hosts</code>中增加记录</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">registry-1.docker.io <span class="token number">54.85</span>.133.123</code></pre>
+
+<p>再测试<code>docker pull</code>发现已经可以工作。</p>
+<h2 id="拉取镜像启动容器"><a href="#拉取镜像启动容器" class="headerlink" title="拉取镜像启动容器"></a>拉取镜像启动容器</h2><p>1）拉取镜像：查找mysql镜像，<a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql?tab=tags">https://hub.docker.com/_/mysql?tab=tags</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">➜ <span class="token function">docker</span> pull mysql:latest                 
+latest: Pulling from library/mysql
+4be315f6562f: Pull complete 
+96e2eb237a1b: Pull complete 
+8aa3ac85066b: Pull complete 
+ac7e524f6c89: Pull complete 
+f6a88631064f: Pull complete 
+15bb3ec3ff50: Pull complete 
+ae65dc337dcb: Pull complete 
+654aa78d12d6: Pull complete 
+6dd1a07a253d: Pull complete 
+a32905dc9e58: Pull complete 
+152d41026e44: Pull complete 
+42e0f73ebe32: Pull complete 
+Digest: sha256:fc77d54cacef90ad3d75964837fad0f2a9a368b69e7d799665a3f4e90e600c2d
+Status: Downloaded newer image <span class="token keyword">for</span> mysql:latest
+docker.io/library/mysql:latest</code></pre>
+
+<p>2）启动容器</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查找镜像</span>
+➜ <span class="token function">docker</span> images
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+mysql        latest    f2ad9f23df82   <span class="token number">6</span> days ago   521MB
+
+➜ <span class="token function">docker</span> run --name mysql8 -d -p <span class="token number">3306</span>:3306 -e <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>ahern88 -v /data/mysql:/var/lib/mysql mysql:latest
+2053595f4a2338a61ff727ceb9dad5c99d02229feab2823dfee852f8595b9aa2</code></pre>
+
+<p>3）检查数据库</p>
+<p>使用客户端工具或代码连接，测试安装是否成功。</p>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-04-26T12:46:26.000Z" itemprop="datePublished">2022-04-26</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-git-restore-worktree-by-packfile"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/04/23/git-restore-worktree-by-packfile/">使用pack文件恢复Git工作区</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="0-本文介绍"><a href="#0-本文介绍" class="headerlink" title="0. 本文介绍"></a>0. 本文介绍</h2><p>了解过Git原理的同学应该都知道，Git底层是一个kv的文件数据库，Git管理的所有的文件都存在objects文件夹中，而当我们从远端仓库clone数据到本地的过程中主要传递两种数据：</p>
+<ul>
+<li><p>branch和tag对应的commit id数据列表</p>
+</li>
+<li><p>服务器仓库生成的pack文件（包含所有Git历史提交的数据版本）</p>
+</li>
+</ul>
+<p>那么本文就介绍如何通过pack文件和一个commit id恢复本地工作区，从而去加深了解Git的底层原理。</p>
+<hr>
+<h2 id="1-新建仓库并加入已有的pack文件"><a href="#1-新建仓库并加入已有的pack文件" class="headerlink" title="1. 新建仓库并加入已有的pack文件"></a>1. 新建仓库并加入已有的pack文件</h2><p>假设我们拿到服务器仓库中的pack文件 pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack 在&#x2F;tmp目录下</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> study_git
+<span class="token function">git</span> init demo01 <span class="token comment"># 创建demo01的git目录</span>
+<span class="token builtin class-name">cd</span> demo01
+<span class="token function">cp</span> /tmp/pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack <span class="token builtin class-name">.</span>
+</code></pre>
+
+<hr>
+<h2 id="2-基于pack文件生成pack的idx索引文件"><a href="#2-基于pack文件生成pack的idx索引文件" class="headerlink" title="2. 基于pack文件生成pack的idx索引文件"></a>2. 基于pack文件生成pack的idx索引文件</h2><p>pack中包含了所有的object数据，但它时一个压缩文件，需要有对应idx索引文件才能完成object数据的查找，现在我们有了pack文件，那么我们可以基于<code>index-pack</code>命令去生成对应的idx文件，idx文件包含是object对应的hash值和对应的存储位置，可以快速定位。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> demo01
+<span class="token function">git</span> index-pack -o pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack
+598b51485951bbfd3cd893ef230beb0e96ea172c
+<span class="token function">ls</span> -l
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.idx
+pack-598b51485951bbfd3cd893ef230beb0e96ea172c.pack</code></pre>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-04-23T13:55:17.000Z" itemprop="datePublished">2022-04-23</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/Git/">Git</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-git-commands"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/04/18/git-commands/">Git命令集合</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>作为普通的git操作者，git常用的只是上层命令，这些命令只能完成基本的操作。</p>
+<p>而要了解git底层原理，必须要了解底层的命令才行。</p>
+<h2 id="1-Git主要的上层命令"><a href="#1-Git主要的上层命令" class="headerlink" title="1. Git主要的上层命令"></a>1. Git主要的上层命令</h2><pre class="language-bash" data-language="bash"><code class="language-bash">主要的上层命令
+   <span class="token function">add</span>                  添加文件内容至索引
+   am                   应用邮箱格式的系列补丁
+   archive              基于一个指定的树创建文件存档
+   bisect               通过二分查找定位引入 bug 的提交
+   branch               列出、创建或删除分支
+   bundle               通过归档移动对象和引用
+   checkout             切换分支或恢复工作区文件
+   cherry-pick          应用一些现存提交引入的修改
+   citool               git-commit 的图形替代界面
+   clean                从工作区中删除未跟踪文件
+   clone                克隆仓库到一个新目录
+   commit               记录变更到仓库
+   describe             基于一个现存的引用为一个对象起一个可读的名称
+   <span class="token function">diff</span>                 显示提交之间、提交和工作区之间等的差异
+   fetch                从另外一个仓库下载对象和引用
+   format-patch         准备电子邮件提交的补丁
+   gc                   清除不必要的文件和优化本地仓库
+   gitk                 Git 仓库浏览器
+   <span class="token function">grep</span>                 输出和模式匹配的行
+   gui                  一个便携的 Git 图形客户端
+   init                 创建一个空的 Git 仓库或重新初始化一个已存在的仓库
+   log                  显示提交日志
+   maintenance          运行任务以优化仓库数据
+   merge                合并两个或更多开发历史
+   <span class="token function">mv</span>                   移动或重命名一个文件、目录或符号链接
+   notes                添加或检查对象注释
+   pull                 获取并整合另外的仓库或一个本地分支
+   push                 更新远程引用和相关的对象
+   range-diff           比较两个提交范围（如一个分支的两个版本）
+   rebase               在另一个分支上重新应用提交
+   reset                重置当前 HEAD 到指定状态
+   restore              恢复工作区文件
+   revert               回退一些现存提交
+   <span class="token function">rm</span>                   从工作区和索引中删除文件
+   shortlog             <span class="token string">'git log'</span> 输出摘要
+   show                 显示各种类型的对象
+   sparse-checkout      Reduce your working tree to a subset of tracked files
+   stash                贮藏脏工作区中的修改
+   status               显示工作区状态
+   submodule            初始化、更新或检查子模组
+   switch               切换分支
+   tag                  创建、列出、删除或校验一个 GPG 签名的标签对象
+   worktree             管理多个工作区</code></pre>
+
+<h2 id="2-Git辅助命令"><a href="#2-Git辅助命令" class="headerlink" title="2. Git辅助命令"></a>2. Git辅助命令</h2><pre class="language-bash" data-language="bash"><code class="language-bash">辅助命令/操作者
+   config               获取和设置仓库或者全局选项
+   fast-export          Git 数据导出器
+   fast-import          Git 快速数据导入器后端
+   filter-branch        重写分支
+   mergetool            运行合并冲突解决工具以解决合并冲突
+   pack-refs            打包头和标签以实现高效的仓库访问
+   prune                删除对象库中所有不可达对象
+   reflog               管理 reflog 信息
+   remote               管理已跟踪仓库
+   repack               打包仓库中未打包对象
+   replace              创建、列出、删除对象替换引用
+
+辅助命令/询问者
+   annotate             使用提交信息注释文件行
+   blame                显示文件每一行最后修改的版本和修改者
+   bugreport            收集信息以供用户提交错误报告
+   count-objects        计算未打包对象的数量和磁盘空间占用
+   difftool             使用常见的差异工具显示更改
+   <span class="token function">fsck</span>                 验证仓库中对象的连通性和有效性
+   gitweb               Git web 界面（Git 仓库的 web 前端）
+   <span class="token builtin class-name">help</span>                 显示 Git 的帮助信息
+   instaweb             在 gitweb 中即时浏览您的工作仓库
+   merge-tree           在不动索引的情况下显示三路合并
+   rerere               重用冲突合并的解决方案记录
+   show-branch          显示分支和提交
+   verify-commit        检查 GPG 提交签名
+   verify-tag           检查标签的 GPG 签名
+   whatchanged          显示每一个提交引入的差异日志</code></pre>
+
+<h2 id="3-Git低级命令（底层命令）"><a href="#3-Git低级命令（底层命令）" class="headerlink" title="3. Git低级命令（底层命令）"></a>3. Git低级命令（底层命令）</h2><pre class="language-bash" data-language="bash"><code class="language-bash">低级命令/操作者
+   apply                应用一个补丁到文件和/或索引区
+   checkout-index       从索引拷贝文件到工作区
+   commit-graph         写入和校验 Git 提交图文件
+   commit-tree          创建一个新的提交对象
+   hash-object          从一个文件计算对象 ID，并可以创建 blob 数据对象
+   index-pack           从一个现存的包存档文件创建包索引
+   merge-file           运行一个三路文件合并
+   merge-index          对于需要合并的文件执行合并
+   mktag                创建一个有额外验证的标签对象
+   mktree               基于 ls-tree 的格式化文本创建一个树对象
+   multi-pack-index     写入和校验多包索引
+   pack-objects         创建对象的存档包
+   prune-packed         删除已经在包文件中的多余对象
+   read-tree            将树信息读取到索引
+   symbolic-ref         读取、修改和删除符号引用
+   unpack-objects       从打包文件中解压缩对象
+   update-index         将工作区的文件内容注册到索引
+   update-ref           安全地更新存储于引用中的对象名称
+   write-tree           从当前索引创建一个树对象
+
+低级命令/询问者
+   cat-file             提供仓库对象的内容、类型或大小
+   cherry               查找尚未应用到上游的提交
+   diff-files           比较工作区和索引区中的文件
+   diff-index           将一个树和工作区或索引做比较
+   diff-tree            比较两个树对象的文件内容和模式
+   for-each-ref         对每一个引用输出信息 
+   for-each-repo        在一个仓库列表上运行 Git 命令
+   get-tar-commit-id    从 git-archive 创建的归档文件中提取提交 ID
+   ls-files             显示索引和工作区中文件的信息
+   ls-remote            显示一个远程仓库的引用
+   ls-tree              显示一个树对象的内容
+   merge-base           为了合并查找尽可能好的公共祖先提交
+   name-rev             查找给定版本的符号名称
+   pack-redundant       查找冗余的包文件
+   rev-list             按时间顺序列出提交对象
+   rev-parse            选出并处理参数
+   show-index           显示打包归档索引
+   show-ref             显示本地仓库中的引用
+   unpack-file          用 blob 数据对象的内容创建一个临时文件
+   var                  显示一个Git逻辑变量
+   verify-pack          校验打包的Git存仓文件
+
+低级命令/同步仓库
+   daemon               一个非常简单的 Git 仓库服务器
+   fetch-pack           从另一个仓库获取缺失的对象
+   http-backend         Git HTTP 协议的服务端实现
+   send-pack            使用 Git 协议推送对象到另一个仓库
+   update-server-info   更新辅助信息文件以帮助哑协议服务
+
+低级命令/内部助手
+   check-attr           显示 gitattributes 信息
+   check-ignore         调试 gitignore / exclude 文件
+   check-mailmap        显示联系人的规范名称和电子邮件
+   check-ref-format     确保引用名称格式正确
+   <span class="token function">column</span>               以列的方式显示数据
+   credential           检索和存储用户密码
+   credential-cache     在内存中临时存储密码的助手
+   credential-store     在磁盘存储密码的助手
+   fmt-merge-msg        生成一个合并提交信息
+   hook                 Run <span class="token function">git</span> hooks
+   interpret-trailers   添加或解析提交说明中的结构化信息
+   mailinfo             从单个电子邮件中提取补丁和作者身份
+   mailsplit            简单的 UNIX mbox 邮箱切分程序
+   merge-one-file       与 git-merge-index 一起使用的标准向导程序
+   patch-id             计算一个补丁的唯一 ID
+   sh-i18n              为 shell 脚本准备的 Git 国际化设置代码
+   sh-setup             常用的 Git shell 脚本设置代码
+   stripspace           删除不必要的空白字符</code></pre>
+
+<h2 id="4-Git其他命令"><a href="#4-Git其他命令" class="headerlink" title="4. Git其他命令"></a>4. Git其他命令</h2><pre class="language-bash" data-language="bash"><code class="language-bash">与其它系统交互
+   archimport           将一个 GNU Arch 仓库导入到 Git
+   cvsexportcommit      将一个提交导出到 CVS 检出中
+   cvsimport            从另外一个人们爱恨的配置管理系统中拯救您的数据
+   cvsserver            Git 的一个 CVS 服务模拟器
+   imap-send            从标准输入将一组补丁发送到IMAP文件夹
+   p4                   导入和提交到 Perforce 仓库中
+   quiltimport          将一个 quilt 补丁集应用到当前分支。
+   request-pull         生成待定更改的摘要
+   send-email           通过电子邮件发送一组补丁
+   svn                  Subersion 仓库和 Git 之间的双向操作
+
+外部命令
+   cli</code></pre>
+
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-04-17T16:33:23.000Z" itemprop="datePublished">2022-04-18</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/Git/">Git</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-tidb-architecture-philosophy"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/04/10/tidb-architecture-philosophy/">TiDB的架构哲学与思考</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>TiDB是PingCAP公司研发的一款新一代的分布式数据库，能应对OLTP与OLAP等混合场景的应用，在各大公司应用的非常广泛，让我们可以抛弃传统的分库分表等方案，分享来自PingCAP的首席架构师兼CTO</p>
+<h2 id="分享内容"><a href="#分享内容" class="headerlink" title="分享内容"></a>分享内容</h2><h3 id="可插拔的存储"><a href="#可插拔的存储" class="headerlink" title="可插拔的存储"></a>可插拔的存储</h3><p>TODO</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文完全来自b站上开放的meetup视频，因为分享的很好，所以把内容提炼成文字。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19q4y1n7D2">【Meetup 分享】TiDB的架构哲学与场景思考</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xAiuLJtCZOg">NewSQL大神黄东旭：从0到1，如何设计一个分布式数据库</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gz411i7jw/">【TiDB DevCon 2020】TiDB 下一步技术 Roadmap 展望-黄东旭</a></li>
+</ul>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-04-10T08:52:49.000Z" itemprop="datePublished">2022-04-10</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIDB/" rel="tag">TIDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-run-gdb-on-macos"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/04/09/run-gdb-on-macos/">在MacOS上使用GDB调试C程序</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="1-编写C程序"><a href="#1-编写C程序" class="headerlink" title="1. 编写C程序"></a>1. 编写C程序</h2><p>编写一段简单的C程序 main.c ，并做好验证</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"hello world\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>编译（保证机器上有装gcc，若没有装可以采用 brew install gcc 完成安装），并执行</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ gcc -g main.c -o main.o
+$ ./main.o
+hello world
+<span class="token number">1</span></code></pre>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-04-09T01:47:03.000Z" itemprop="datePublished">2022-04-09</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-git-in-depth-study"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/04/05/git-in-depth-study/">一文深入浅出学习Git工具</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <blockquote>
+<p>Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。</p>
+</blockquote>
+<h2 id="0-Git安装"><a href="#0-Git安装" class="headerlink" title="0. Git安装"></a>0. Git安装</h2><p>git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。</p>
+<p>mac安装git</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ brew <span class="token function">install</span> <span class="token function">git</span></code></pre>
+
+<p>检查git是否安装完成</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> --version
+<span class="token function">git</span> version <span class="token number">2.32</span>.0 <span class="token punctuation">(</span>Apple Git-132<span class="token punctuation">)</span></code></pre>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-04-05T09:05:20.000Z" itemprop="datePublished">2022-04-05</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/Git/">Git</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-index"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/03/31/index/">从零开始使用GitHub+Hexo搭建个人博客</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>通过本文你能完成自己的个人博客搭建（无需个人主机、个人域名，免费），你的博客将拥有如下功能</p>
+<ul>
+<li>分类功能</li>
+<li>标签功能</li>
+<li>搜索功能</li>
+<li>评论功能</li>
+<li>数据分析</li>
+<li>博文发布</li>
+</ul>
+<hr>
+<h2 id="0-安装Hexo"><a href="#0-安装Hexo" class="headerlink" title="0. 安装Hexo"></a>0. 安装Hexo</h2><p>提前先安装node，node中包含npm工具，具体安装node这里不做描述</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-cli -g</code></pre>
+
+<p>安装完hexo-cli工具后，就可以开始创建博客了</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo init ahern88_github_io
+$ <span class="token builtin class-name">cd</span> ahern88_github_io
+$ <span class="token function">npm</span> <span class="token function">install</span></code></pre>
+
+<p>到这里博客已经初始化好，可以启动查看demo页面了，先要在本地启动hexo的server</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo server
+INFO  Validating config
+INFO  Start processing
+INFO  Hexo is running at http://localhost:4000/ <span class="token builtin class-name">.</span> Press Ctrl+C to stop.</code></pre>
+
+<p>在浏览器中打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> 就能看到默认页面了，不过可能你也发现了默认页面的主题样式并不是你喜欢的，下面我们看如何更换和安装主题。</p>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-03-31T15:59:09.000Z" itemprop="datePublished">2022-03-31</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+
+  
+</div>
+
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <box-icon name='search' color="#3c4859"></box-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/">技术教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAG/" rel="tag">RAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TIDB/" rel="tag">TIDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%8C%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90%EF%BC%8CAI/" rel="tag">大语言模型，检索增强生成，AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/06/RAG-%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E4%B8%8E%E7%8E%B0%E7%8A%B6/">RAG 技术发展与现状</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/26/transcation-study-all/">事务学习合集</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/26/docker-install-mysql/">使用Docker安装MySQL</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/git-restore-worktree-by-packfile/">使用pack文件恢复Git工作区</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/18/git-commands/">Git命令集合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/">2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            ahern88的技术小站 &copy; 2026<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1650731893283.js"></script>
+
+
+<script src="/dist/custom.js?1650731893283.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Baidu Analytics-->
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f6e09ac3389fb861bbfa7bbceb2a5698";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</body>
+
+</html>
