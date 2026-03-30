@@ -154,6 +154,843 @@
   
     
       <article
+id="post-AI-Agent-Harness-技术指南"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2026/03/30/AI-Agent-Harness-%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97/">AI Agent Harness 技术指南 - 构建智能代理的核心框架</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h1 id="AI-Agent-Harness：构建智能代理的核心框架"><a href="#AI-Agent-Harness：构建智能代理的核心框架" class="headerlink" title="AI Agent Harness：构建智能代理的核心框架"></a>AI Agent Harness：构建智能代理的核心框架</h1><blockquote>
+<p>深入解析 AI Agent 系统中 Harness 的技术原理、架构设计与实践应用</p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-agent-harness">什么是 Agent Harness？</a></li>
+<li><a href="#%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84">技术原理与核心架构</a></li>
+<li>[Harness 的关键组件](#Harness 的关键组件)</li>
+<li><a href="#%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E6%9E%84%E5%BB%BA%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-harness">实践指南：构建你的第一个 Harness</a></li>
+<li><a href="#%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96">高级特性与优化</a></li>
+<li><a href="#%E5%AE%89%E5%85%A8%E4%B8%8E%E7%9B%91%E6%8E%A7">安全与监控</a></li>
+<li><a href="#%E6%9C%AA%E6%9D%A5%E8%B6%8B%E5%8A%BF">未来趋势</a></li>
+</ol>
+<hr>
+<h2 id="什么是-Agent-Harness？"><a href="#什么是-Agent-Harness？" class="headerlink" title="什么是 Agent Harness？"></a>什么是 Agent Harness？</h2><h3 id="定义与概念"><a href="#定义与概念" class="headerlink" title="定义与概念"></a>定义与概念</h3><p><strong>Agent Harness</strong>（代理框架&#x2F;代理套索）是 AI Agent 系统中的核心基础设施，它负责<strong>编排、管理和协调</strong>智能代理的整个生命周期。可以将其理解为一个”操作系统”，为 AI 代理提供运行环境、资源调度、工具调用和安全保障。</p>
+<h3 id="为什么需要-Harness？"><a href="#为什么需要-Harness？" class="headerlink" title="为什么需要 Harness？"></a>为什么需要 Harness？</h3><p>想象一下，你有一个聪明的 AI 助手，它能够：</p>
+<ul>
+<li>理解复杂的任务</li>
+<li>调用各种工具（搜索、文件操作、API 调用等）</li>
+<li>进行多轮推理和规划</li>
+<li>与其他代理协作</li>
+</ul>
+<p>但如果没有一个良好的框架来管理这些能力，AI 就会像一匹脱缰的野马——虽然强大但难以控制。<strong>Harness 就是那根缰绳</strong>，它确保 AI 的能力被安全、高效、可预测地使用。</p>
+<h3 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h3><pre class="language-none"><code class="language-none">┌─────────────────────────────────────────────────────────┐
+│                    用户请求                              │
+│  &quot;帮我分析最近的市场趋势，生成报告并发布到博客&quot;            │
+└─────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────┐
+│                   Agent Harness                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐      │
+│  │  任务规划   │→ │  工具调度   │→ │  执行监控   │      │
+│  └─────────────┘  └─────────────┘  └─────────────┘      │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐      │
+│  │  安全审查   │← │  结果聚合   │← │  错误处理   │      │
+│  └─────────────┘  └─────────────┘  └─────────────┘      │
+└─────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────┐
+│                    输出结果                              │
+│  市场分析报告 + 博客文章 + 发布确认                       │
+└─────────────────────────────────────────────────────────┘</code></pre>
+
+<hr>
+<h2 id="技术原理与核心架构"><a href="#技术原理与核心架构" class="headerlink" title="技术原理与核心架构"></a>技术原理与核心架构</h2><h3 id="1-分层架构模型"><a href="#1-分层架构模型" class="headerlink" title="1. 分层架构模型"></a>1. 分层架构模型</h3><p>现代 Agent Harness 通常采用分层架构设计：</p>
+<pre class="language-none"><code class="language-none">┌─────────────────────────────────────────┐
+│          应用层 (Application)            │
+│  用户界面、API 接口、业务逻辑集成          │
+├─────────────────────────────────────────┤
+│          编排层 (Orchestration)          │
+│  任务规划、工作流引擎、状态管理           │
+├─────────────────────────────────────────┤
+│          代理层 (Agent Core)             │
+│  LLM 推理、记忆管理、决策引擎             │
+├─────────────────────────────────────────┤
+│          工具层 (Tooling)                │
+│  工具注册、API 封装、外部服务集成          │
+├─────────────────────────────────────────┤
+│          基础设施层 (Infrastructure)     │
+│  安全沙箱、资源隔离、日志监控             │
+└─────────────────────────────────────────┘</code></pre>
+
+<h3 id="2-核心工作原理"><a href="#2-核心工作原理" class="headerlink" title="2. 核心工作原理"></a>2. 核心工作原理</h3><h4 id="2-1-任务解析与规划"><a href="#2-1-任务解析与规划" class="headerlink" title="2.1 任务解析与规划"></a>2.1 任务解析与规划</h4><p>Harness 接收到用户请求后，首先进行任务解析：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 伪代码示例：任务解析流程</span>
+<span class="token keyword">def</span> <span class="token function">parse_and_plan</span><span class="token punctuation">(</span>user_request<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> TaskPlan<span class="token punctuation">:</span>
+    <span class="token comment"># Step 1: 意图识别</span>
+    intent <span class="token operator">=</span> llm<span class="token punctuation">.</span>classify_intent<span class="token punctuation">(</span>user_request<span class="token punctuation">)</span>
+    
+    <span class="token comment"># Step 2: 任务分解</span>
+    subtasks <span class="token operator">=</span> llm<span class="token punctuation">.</span>decompose_task<span class="token punctuation">(</span>user_request<span class="token punctuation">,</span> intent<span class="token punctuation">)</span>
+    
+    <span class="token comment"># Step 3: 依赖分析</span>
+    dependency_graph <span class="token operator">=</span> build_dependency_graph<span class="token punctuation">(</span>subtasks<span class="token punctuation">)</span>
+    
+    <span class="token comment"># Step 4: 资源预估</span>
+    resource_requirements <span class="token operator">=</span> estimate_resources<span class="token punctuation">(</span>subtasks<span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> TaskPlan<span class="token punctuation">(</span>
+        intent<span class="token operator">=</span>intent<span class="token punctuation">,</span>
+        subtasks<span class="token operator">=</span>subtasks<span class="token punctuation">,</span>
+        dependencies<span class="token operator">=</span>dependency_graph<span class="token punctuation">,</span>
+        resources<span class="token operator">=</span>resource_requirements
+    <span class="token punctuation">)</span></code></pre>
+
+<h4 id="2-2-工具调用机制"><a href="#2-2-工具调用机制" class="headerlink" title="2.2 工具调用机制"></a>2.2 工具调用机制</h4><p>Harness 提供统一的工具调用接口：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ToolHarness</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tools<span class="token punctuation">:</span> List<span class="token punctuation">[</span>BaseTool<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>tools <span class="token operator">=</span> <span class="token punctuation">&#123;</span>tool<span class="token punctuation">.</span>name<span class="token punctuation">:</span> tool <span class="token keyword">for</span> tool <span class="token keyword">in</span> tools<span class="token punctuation">&#125;</span>
+        self<span class="token punctuation">.</span>registry <span class="token operator">=</span> ToolRegistry<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_tool</span><span class="token punctuation">(</span>
+        self<span class="token punctuation">,</span> 
+        tool_name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> 
+        params<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        context<span class="token punctuation">:</span> ExecutionContext
+    <span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> ToolResult<span class="token punctuation">:</span>
+        <span class="token comment"># 1. 权限验证</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>check_permission<span class="token punctuation">(</span>tool_name<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> PermissionError<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"No access to </span><span class="token interpolation"><span class="token punctuation">&#123;</span>tool_name<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 2. 参数验证</span>
+        tool <span class="token operator">=</span> self<span class="token punctuation">.</span>tools<span class="token punctuation">[</span>tool_name<span class="token punctuation">]</span>
+        validated_params <span class="token operator">=</span> tool<span class="token punctuation">.</span>validate_params<span class="token punctuation">(</span>params<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 3. 沙箱执行</span>
+        result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>sandboxed_execute<span class="token punctuation">(</span>tool<span class="token punctuation">,</span> validated_params<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 4. 结果审计</span>
+        self<span class="token punctuation">.</span>audit_result<span class="token punctuation">(</span>tool_name<span class="token punctuation">,</span> result<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> result</code></pre>
+
+<h4 id="2-3-状态管理与记忆"><a href="#2-3-状态管理与记忆" class="headerlink" title="2.3 状态管理与记忆"></a>2.3 状态管理与记忆</h4><p>Harness 维护代理的状态和记忆：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AgentMemory</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> memory_config<span class="token punctuation">:</span> MemoryConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>short_term <span class="token operator">=</span> ShortTermMemory<span class="token punctuation">(</span>max_size<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>long_term <span class="token operator">=</span> LongTermMemory<span class="token punctuation">(</span>vector_store<span class="token operator">=</span>memory_config<span class="token punctuation">.</span>vector_db<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>working_memory <span class="token operator">=</span> WorkingMemory<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">store_experience</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> experience<span class="token punctuation">:</span> Experience<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 短期记忆</span>
+        self<span class="token punctuation">.</span>short_term<span class="token punctuation">.</span>add<span class="token punctuation">(</span>experience<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 重要经验转入长期记忆</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_important<span class="token punctuation">(</span>experience<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            embedding <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>embed<span class="token punctuation">(</span>experience<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>long_term<span class="token punctuation">.</span>store<span class="token punctuation">(</span>embedding<span class="token punctuation">,</span> experience<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">retrieve_context</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> query<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>Experience<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment"># 从长期记忆中检索相关上下文</span>
+        relevant <span class="token operator">=</span> self<span class="token punctuation">.</span>long_term<span class="token punctuation">.</span>search<span class="token punctuation">(</span>query<span class="token punctuation">,</span> top_k<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+        <span class="token comment"># 结合短期记忆</span>
+        <span class="token keyword">return</span> relevant <span class="token operator">+</span> self<span class="token punctuation">.</span>short_term<span class="token punctuation">.</span>recent<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<h3 id="3-执行引擎设计"><a href="#3-执行引擎设计" class="headerlink" title="3. 执行引擎设计"></a>3. 执行引擎设计</h3><h4 id="3-1-同步-vs-异步执行"><a href="#3-1-同步-vs-异步执行" class="headerlink" title="3.1 同步 vs 异步执行"></a>3.1 同步 vs 异步执行</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 同步执行模式（简单任务）</span>
+result <span class="token operator">=</span> harness<span class="token punctuation">.</span>execute_task<span class="token punctuation">(</span>task<span class="token punctuation">)</span>
+
+<span class="token comment"># 异步执行模式（复杂任务）</span>
+task_id <span class="token operator">=</span> harness<span class="token punctuation">.</span>submit_task<span class="token punctuation">(</span>task<span class="token punctuation">)</span>
+<span class="token keyword">while</span> <span class="token keyword">not</span> harness<span class="token punctuation">.</span>is_complete<span class="token punctuation">(</span>task_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    status <span class="token operator">=</span> harness<span class="token punctuation">.</span>get_status<span class="token punctuation">(</span>task_id<span class="token punctuation">)</span>
+    <span class="token keyword">await</span> asyncio<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+result <span class="token operator">=</span> harness<span class="token punctuation">.</span>get_result<span class="token punctuation">(</span>task_id<span class="token punctuation">)</span>
+
+<span class="token comment"># 流式执行模式（实时反馈）</span>
+<span class="token keyword">async</span> <span class="token keyword">for</span> event <span class="token keyword">in</span> harness<span class="token punctuation">.</span>execute_streaming<span class="token punctuation">(</span>task<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> event<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"progress"</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Progress: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>event<span class="token punctuation">.</span>progress<span class="token punctuation">&#125;</span></span><span class="token string">%"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> event<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"tool_call"</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Calling tool: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>event<span class="token punctuation">.</span>tool_name<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> event<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"result"</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Final result: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>event<span class="token punctuation">.</span>result<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span></code></pre>
+
+<h4 id="3-2-并行与串行编排"><a href="#3-2-并行与串行编排" class="headerlink" title="3.2 并行与串行编排"></a>3.2 并行与串行编排</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 串行执行（有依赖关系）</span>
+plan <span class="token operator">=</span> TaskPlan<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    Step<span class="token punctuation">(</span><span class="token string">"search"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"query"</span><span class="token punctuation">:</span> <span class="token string">"market trends"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Step<span class="token punctuation">(</span><span class="token string">"analyze"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token string">"$search.result"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  <span class="token comment"># 依赖上一步</span>
+    Step<span class="token punctuation">(</span><span class="token string">"write"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"analysis"</span><span class="token punctuation">:</span> <span class="token string">"$analyze.result"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 并行执行（无依赖关系）</span>
+plan <span class="token operator">=</span> TaskPlan<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    Parallel<span class="token punctuation">(</span><span class="token punctuation">[</span>
+        Step<span class="token punctuation">(</span><span class="token string">"search_stocks"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Step<span class="token punctuation">(</span><span class="token string">"search_crypto"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Step<span class="token punctuation">(</span><span class="token string">"search_forex"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Step<span class="token punctuation">(</span><span class="token string">"aggregate"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token string">"$parallel.results"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+
+<hr>
+<h2 id="Harness-的关键组件"><a href="#Harness-的关键组件" class="headerlink" title="Harness 的关键组件"></a>Harness 的关键组件</h2><h3 id="1-工具注册中心-Tool-Registry"><a href="#1-工具注册中心-Tool-Registry" class="headerlink" title="1. 工具注册中心 (Tool Registry)"></a>1. 工具注册中心 (Tool Registry)</h3><p>工具注册中心是 Harness 的核心组件之一，负责管理所有可用工具：</p>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 工具配置示例</span>
+<span class="token key atrule">tools</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> web_search
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> http
+    <span class="token key atrule">endpoint</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//api.search.com/v1/search
+    <span class="token key atrule">auth</span><span class="token punctuation">:</span> bearer_token
+    <span class="token key atrule">rate_limit</span><span class="token punctuation">:</span> 100/hour
+    <span class="token key atrule">timeout</span><span class="token punctuation">:</span> 30s
+    <span class="token key atrule">sandbox</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> file_write
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> local
+    <span class="token key atrule">allowed_paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> /workspace/output/*
+      <span class="token punctuation">-</span> /tmp/*
+    <span class="token key atrule">denied_paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> /etc/*
+      <span class="token punctuation">-</span> /home/*
+    <span class="token key atrule">max_file_size</span><span class="token punctuation">:</span> 10MB
+    
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> code_execution
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> sandbox
+    <span class="token key atrule">runtime</span><span class="token punctuation">:</span> python<span class="token punctuation">:</span><span class="token number">3.11</span>
+    <span class="token key atrule">timeout</span><span class="token punctuation">:</span> 60s
+    <span class="token key atrule">network_access</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">memory_limit</span><span class="token punctuation">:</span> 512MB</code></pre>
+
+<h3 id="2-安全沙箱-Security-Sandbox"><a href="#2-安全沙箱-Security-Sandbox" class="headerlink" title="2. 安全沙箱 (Security Sandbox)"></a>2. 安全沙箱 (Security Sandbox)</h3><p>安全沙箱确保代理操作的安全性：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">SecuritySandbox</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> SandboxConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>config <span class="token operator">=</span> config
+        self<span class="token punctuation">.</span>isolation_level <span class="token operator">=</span> config<span class="token punctuation">.</span>isolation_level  <span class="token comment"># none, container, vm</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> operation<span class="token punctuation">:</span> Operation<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Result<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>isolation_level <span class="token operator">==</span> <span class="token string">"container"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>container_execute<span class="token punctuation">(</span>operation<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>isolation_level <span class="token operator">==</span> <span class="token string">"vm"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>vm_execute<span class="token punctuation">(</span>operation<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>native_execute<span class="token punctuation">(</span>operation<span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">validate_operation</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> operation<span class="token punctuation">:</span> Operation<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        <span class="token comment"># 检查操作是否在允许范围内</span>
+        <span class="token keyword">if</span> operation<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>config<span class="token punctuation">.</span>denied_operations<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        
+        <span class="token comment"># 检查资源使用是否超限</span>
+        <span class="token keyword">if</span> operation<span class="token punctuation">.</span>resource_usage <span class="token operator">></span> self<span class="token punctuation">.</span>config<span class="token punctuation">.</span>max_resources<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        
+        <span class="token comment"># 检查目标是否在白名单内</span>
+        <span class="token keyword">if</span> operation<span class="token punctuation">.</span>target <span class="token keyword">not</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>config<span class="token punctuation">.</span>allowed_targets<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        
+        <span class="token keyword">return</span> <span class="token boolean">True</span></code></pre>
+
+<h3 id="3-监控与日志系统"><a href="#3-监控与日志系统" class="headerlink" title="3. 监控与日志系统"></a>3. 监控与日志系统</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">MonitoringSystem</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> MonitorConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>metrics_collector <span class="token operator">=</span> MetricsCollector<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>log_aggregator <span class="token operator">=</span> LogAggregator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>alert_manager <span class="token operator">=</span> AlertManager<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">record_metric</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> value<span class="token punctuation">:</span> <span class="token builtin">float</span><span class="token punctuation">,</span> tags<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>metrics_collector<span class="token punctuation">.</span>record<span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> tags<span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">log_event</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> event<span class="token punctuation">:</span> AgentEvent<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>log_aggregator<span class="token punctuation">.</span>add<span class="token punctuation">(</span>event<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 实时分析异常</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_anomaly<span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>alert_manager<span class="token punctuation">.</span>send_alert<span class="token punctuation">(</span>event<span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">get_dashboard_data</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> DashboardData<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"active_agents"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>metrics_collector<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token string">"agents.active"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"tasks_completed"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>metrics_collector<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token string">"tasks.completed"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"avg_execution_time"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>metrics_collector<span class="token punctuation">.</span>avg<span class="token punctuation">(</span><span class="token string">"tasks.duration"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"error_rate"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>metrics_collector<span class="token punctuation">.</span>rate<span class="token punctuation">(</span><span class="token string">"errors.total"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">"tool_usage"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>metrics_collector<span class="token punctuation">.</span>breakdown<span class="token punctuation">(</span><span class="token string">"tool.calls"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="4-记忆与上下文管理"><a href="#4-记忆与上下文管理" class="headerlink" title="4. 记忆与上下文管理"></a>4. 记忆与上下文管理</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ContextManager</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> ContextConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>max_context_length <span class="token operator">=</span> config<span class="token punctuation">.</span>max_tokens
+        self<span class="token punctuation">.</span>compression_strategy <span class="token operator">=</span> config<span class="token punctuation">.</span>compression
+        self<span class="token punctuation">.</span>priority_rules <span class="token operator">=</span> config<span class="token punctuation">.</span>priority_rules
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">build_context</span><span class="token punctuation">(</span>
+        self<span class="token punctuation">,</span> 
+        conversation<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Message<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        memory<span class="token punctuation">:</span> AgentMemory<span class="token punctuation">,</span>
+        task<span class="token punctuation">:</span> Task
+    <span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+        <span class="token comment"># 1. 收集相关记忆</span>
+        relevant_memories <span class="token operator">=</span> <span class="token keyword">await</span> memory<span class="token punctuation">.</span>retrieve<span class="token punctuation">(</span>task<span class="token punctuation">.</span>description<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 2. 构建完整上下文</span>
+        context_parts <span class="token operator">=</span> <span class="token punctuation">[</span>
+            self<span class="token punctuation">.</span>format_system_prompt<span class="token punctuation">(</span>task<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>format_conversation<span class="token punctuation">(</span>conversation<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>format_memories<span class="token punctuation">(</span>relevant_memories<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>format_tools<span class="token punctuation">(</span>task<span class="token punctuation">.</span>available_tools<span class="token punctuation">)</span>
+        <span class="token punctuation">]</span>
+        
+        <span class="token comment"># 3. 压缩以适应上下文窗口</span>
+        full_context <span class="token operator">=</span> <span class="token string">"\n"</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>context_parts<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>full_context<span class="token punctuation">)</span> <span class="token operator">></span> self<span class="token punctuation">.</span>max_context_length<span class="token punctuation">:</span>
+            full_context <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>compress<span class="token punctuation">(</span>full_context<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> full_context</code></pre>
+
+<hr>
+<h2 id="实践指南：构建你的第一个-Harness"><a href="#实践指南：构建你的第一个-Harness" class="headerlink" title="实践指南：构建你的第一个 Harness"></a>实践指南：构建你的第一个 Harness</h2><h3 id="步骤-1：基础架构搭建"><a href="#步骤-1：基础架构搭建" class="headerlink" title="步骤 1：基础架构搭建"></a>步骤 1：基础架构搭建</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># harness_core.py</span>
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> List<span class="token punctuation">,</span> Dict<span class="token punctuation">,</span> Any
+<span class="token keyword">import</span> asyncio
+
+<span class="token keyword">class</span> <span class="token class-name">AgentHarness</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> HarnessConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>config <span class="token operator">=</span> config
+        self<span class="token punctuation">.</span>llm <span class="token operator">=</span> LLMClient<span class="token punctuation">(</span>config<span class="token punctuation">.</span>llm_config<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>tools <span class="token operator">=</span> ToolRegistry<span class="token punctuation">(</span>config<span class="token punctuation">.</span>tools<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>memory <span class="token operator">=</span> AgentMemory<span class="token punctuation">(</span>config<span class="token punctuation">.</span>memory<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>sandbox <span class="token operator">=</span> SecuritySandbox<span class="token punctuation">(</span>config<span class="token punctuation">.</span>sandbox<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>monitor <span class="token operator">=</span> MonitoringSystem<span class="token punctuation">(</span>config<span class="token punctuation">.</span>monitoring<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> task<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict <span class="token operator">=</span> <span class="token boolean">None</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        <span class="token comment"># 1. 任务解析</span>
+        plan <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>plan_task<span class="token punctuation">(</span>task<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 2. 执行计划</span>
+        results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> step <span class="token keyword">in</span> plan<span class="token punctuation">.</span>steps<span class="token punctuation">:</span>
+            result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>execute_step<span class="token punctuation">(</span>step<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+            results<span class="token punctuation">.</span>append<span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+            context<span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"step_</span><span class="token interpolation"><span class="token punctuation">&#123;</span>step<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">&#125;</span></span><span class="token string">_result"</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> result
+        
+        <span class="token comment"># 3. 聚合结果</span>
+        final_result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>aggregate_results<span class="token punctuation">(</span>results<span class="token punctuation">,</span> plan<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> final_result
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">plan_task</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> task<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> TaskPlan<span class="token punctuation">:</span>
+        prompt <span class="token operator">=</span> self<span class="token punctuation">.</span>build_planning_prompt<span class="token punctuation">(</span>task<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        response <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>llm<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>prompt<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>parse_plan<span class="token punctuation">(</span>response<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_step</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> step<span class="token punctuation">:</span> Step<span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> step<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"tool_call"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>execute_tool<span class="token punctuation">(</span>step<span class="token punctuation">.</span>tool<span class="token punctuation">,</span> step<span class="token punctuation">.</span>params<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> step<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"llm_call"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>execute_llm<span class="token punctuation">(</span>step<span class="token punctuation">.</span>prompt<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> step<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"condition"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>evaluate_condition<span class="token punctuation">(</span>step<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_tool</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tool_name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> params<span class="token punctuation">:</span> Dict<span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        <span class="token comment"># 安全检查</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>sandbox<span class="token punctuation">.</span>validate_operation<span class="token punctuation">(</span>Operation<span class="token punctuation">(</span>tool_name<span class="token punctuation">,</span> params<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> SecurityError<span class="token punctuation">(</span><span class="token string">"Operation not allowed"</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 执行工具</span>
+        tool <span class="token operator">=</span> self<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>get<span class="token punctuation">(</span>tool_name<span class="token punctuation">)</span>
+        result <span class="token operator">=</span> <span class="token keyword">await</span> tool<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>params<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 记录监控数据</span>
+        self<span class="token punctuation">.</span>monitor<span class="token punctuation">.</span>record_metric<span class="token punctuation">(</span><span class="token string">"tool.calls"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"tool"</span><span class="token punctuation">:</span> tool_name<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> result</code></pre>
+
+<h3 id="步骤-2：工具定义与注册"><a href="#步骤-2：工具定义与注册" class="headerlink" title="步骤 2：工具定义与注册"></a>步骤 2：工具定义与注册</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># tools.py</span>
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABC<span class="token punctuation">,</span> abstractmethod
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Dict<span class="token punctuation">,</span> Any
+
+<span class="token keyword">class</span> <span class="token class-name">BaseTool</span><span class="token punctuation">(</span>ABC<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> description<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        self<span class="token punctuation">.</span>description <span class="token operator">=</span> description
+    
+    <span class="token decorator annotation punctuation">@abstractmethod</span>
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> params<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        <span class="token keyword">pass</span>
+    
+    <span class="token keyword">def</span> <span class="token function">validate_params</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> params<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment"># 参数验证逻辑</span>
+        <span class="token keyword">return</span> params
+
+<span class="token keyword">class</span> <span class="token class-name">WebSearchTool</span><span class="token punctuation">(</span>BaseTool<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>
+            name<span class="token operator">=</span><span class="token string">"web_search"</span><span class="token punctuation">,</span>
+            description<span class="token operator">=</span><span class="token string">"Search the web for information"</span>
+        <span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> params<span class="token punctuation">:</span> Dict<span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>Dict<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        query <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token string">"query"</span><span class="token punctuation">]</span>
+        <span class="token comment"># 调用搜索 API</span>
+        results <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>search_api<span class="token punctuation">(</span>query<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> results
+
+<span class="token keyword">class</span> <span class="token class-name">FileWriteTool</span><span class="token punctuation">(</span>BaseTool<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> allowed_paths<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>
+            name<span class="token operator">=</span><span class="token string">"file_write"</span><span class="token punctuation">,</span>
+            description<span class="token operator">=</span><span class="token string">"Write content to a file"</span>
+        <span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>allowed_paths <span class="token operator">=</span> allowed_paths
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> params<span class="token punctuation">:</span> Dict<span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">:</span>
+        path <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token string">"path"</span><span class="token punctuation">]</span>
+        content <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token string">"content"</span><span class="token punctuation">]</span>
+        
+        <span class="token comment"># 验证路径</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>is_path_allowed<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> SecurityError<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Path not allowed: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>path<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 写入文件</span>
+        <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+            f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"success"</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token string">"path"</span><span class="token punctuation">:</span> path<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="步骤-3：工作流编排"><a href="#步骤-3：工作流编排" class="headerlink" title="步骤 3：工作流编排"></a>步骤 3：工作流编排</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># workflow.py</span>
+<span class="token keyword">class</span> <span class="token class-name">WorkflowEngine</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> harness<span class="token punctuation">:</span> AgentHarness<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>harness <span class="token operator">=</span> harness
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">run_workflow</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> workflow<span class="token punctuation">:</span> Workflow<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        results <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        
+        <span class="token keyword">for</span> stage <span class="token keyword">in</span> workflow<span class="token punctuation">.</span>stages<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> stage<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"parallel"</span><span class="token punctuation">:</span>
+                <span class="token comment"># 并行执行</span>
+                tasks <span class="token operator">=</span> <span class="token punctuation">[</span>
+                    self<span class="token punctuation">.</span>harness<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>step<span class="token punctuation">.</span>task<span class="token punctuation">,</span> results<span class="token punctuation">)</span>
+                    <span class="token keyword">for</span> step <span class="token keyword">in</span> stage<span class="token punctuation">.</span>steps
+                <span class="token punctuation">]</span>
+                stage_results <span class="token operator">=</span> <span class="token keyword">await</span> asyncio<span class="token punctuation">.</span>gather<span class="token punctuation">(</span><span class="token operator">*</span>tasks<span class="token punctuation">)</span>
+                results<span class="token punctuation">[</span>stage<span class="token punctuation">.</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> stage_results
+            
+            <span class="token keyword">elif</span> stage<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"sequential"</span><span class="token punctuation">:</span>
+                <span class="token comment"># 串行执行</span>
+                <span class="token keyword">for</span> step <span class="token keyword">in</span> stage<span class="token punctuation">.</span>steps<span class="token punctuation">:</span>
+                    result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>harness<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>step<span class="token punctuation">.</span>task<span class="token punctuation">,</span> results<span class="token punctuation">)</span>
+                    results<span class="token punctuation">[</span>step<span class="token punctuation">.</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> result
+            
+            <span class="token keyword">elif</span> stage<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"conditional"</span><span class="token punctuation">:</span>
+                <span class="token comment"># 条件执行</span>
+                condition_result <span class="token operator">=</span> results<span class="token punctuation">[</span>stage<span class="token punctuation">.</span>condition<span class="token punctuation">.</span>step<span class="token punctuation">]</span>
+                <span class="token keyword">if</span> stage<span class="token punctuation">.</span>condition<span class="token punctuation">.</span>evaluate<span class="token punctuation">(</span>condition_result<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>harness<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>stage<span class="token punctuation">.</span>then_task<span class="token punctuation">,</span> results<span class="token punctuation">)</span>
+                    results<span class="token punctuation">[</span>stage<span class="token punctuation">.</span>then_name<span class="token punctuation">]</span> <span class="token operator">=</span> result
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>harness<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>stage<span class="token punctuation">.</span>else_task<span class="token punctuation">,</span> results<span class="token punctuation">)</span>
+                    results<span class="token punctuation">[</span>stage<span class="token punctuation">.</span>else_name<span class="token punctuation">]</span> <span class="token operator">=</span> result
+        
+        <span class="token keyword">return</span> results</code></pre>
+
+<h3 id="步骤-4：完整示例-博客发布代理"><a href="#步骤-4：完整示例-博客发布代理" class="headerlink" title="步骤 4：完整示例 - 博客发布代理"></a>步骤 4：完整示例 - 博客发布代理</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># blog_publisher.py</span>
+<span class="token keyword">class</span> <span class="token class-name">BlogPublisherHarness</span><span class="token punctuation">(</span>AgentHarness<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        config <span class="token operator">=</span> HarnessConfig<span class="token punctuation">(</span>
+            llm_config<span class="token operator">=</span>LLMConfig<span class="token punctuation">(</span>model<span class="token operator">=</span><span class="token string">"gpt-4"</span><span class="token punctuation">,</span> temperature<span class="token operator">=</span><span class="token number">0.7</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            tools<span class="token operator">=</span><span class="token punctuation">[</span>
+                WebSearchTool<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                FileWriteTool<span class="token punctuation">(</span>allowed_paths<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"/workspace/blog/*"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                GitHubAPITool<span class="token punctuation">(</span>token<span class="token operator">=</span>os<span class="token punctuation">.</span>getenv<span class="token punctuation">(</span><span class="token string">"GITHUB_TOKEN"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                MarkdownTool<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            memory<span class="token operator">=</span>MemoryConfig<span class="token punctuation">(</span>vector_db<span class="token operator">=</span><span class="token string">"chromadb"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            sandbox<span class="token operator">=</span>SandboxConfig<span class="token punctuation">(</span>isolation_level<span class="token operator">=</span><span class="token string">"container"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            monitoring<span class="token operator">=</span>MonitorConfig<span class="token punctuation">(</span>enabled<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">publish_blog</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> topic<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">:</span>
+        workflow <span class="token operator">=</span> Workflow<span class="token punctuation">(</span>
+            name<span class="token operator">=</span><span class="token string">"blog_publish"</span><span class="token punctuation">,</span>
+            stages<span class="token operator">=</span><span class="token punctuation">[</span>
+                Stage<span class="token punctuation">(</span>
+                    name<span class="token operator">=</span><span class="token string">"research"</span><span class="token punctuation">,</span>
+                    <span class="token builtin">type</span><span class="token operator">=</span><span class="token string">"parallel"</span><span class="token punctuation">,</span>
+                    steps<span class="token operator">=</span><span class="token punctuation">[</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string-interpolation"><span class="token string">f"Search latest trends about </span><span class="token interpolation"><span class="token punctuation">&#123;</span>topic<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string-interpolation"><span class="token string">f"Find best practices for </span><span class="token interpolation"><span class="token punctuation">&#123;</span>topic<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string-interpolation"><span class="token string">f"Gather code examples for </span><span class="token interpolation"><span class="token punctuation">&#123;</span>topic<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+                    <span class="token punctuation">]</span>
+                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Stage<span class="token punctuation">(</span>
+                    name<span class="token operator">=</span><span class="token string">"write"</span><span class="token punctuation">,</span>
+                    <span class="token builtin">type</span><span class="token operator">=</span><span class="token string">"sequential"</span><span class="token punctuation">,</span>
+                    steps<span class="token operator">=</span><span class="token punctuation">[</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Create blog outline"</span><span class="token punctuation">,</span> depends_on<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"research"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Write introduction section"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Write technical sections"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Write conclusion"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Add code examples"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Generate markdown"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">]</span>
+                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Stage<span class="token punctuation">(</span>
+                    name<span class="token operator">=</span><span class="token string">"publish"</span><span class="token punctuation">,</span>
+                    <span class="token builtin">type</span><span class="token operator">=</span><span class="token string">"sequential"</span><span class="token punctuation">,</span>
+                    steps<span class="token operator">=</span><span class="token punctuation">[</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Save to local file"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Commit to git"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Push to GitHub"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        Step<span class="token punctuation">(</span>task<span class="token operator">=</span><span class="token string">"Verify deployment"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">]</span>
+                <span class="token punctuation">)</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">)</span>
+        
+        results <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>run_workflow<span class="token punctuation">(</span>workflow<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> results</code></pre>
+
+<hr>
+<h2 id="高级特性与优化"><a href="#高级特性与优化" class="headerlink" title="高级特性与优化"></a>高级特性与优化</h2><h3 id="1-自适应规划-Adaptive-Planning"><a href="#1-自适应规划-Adaptive-Planning" class="headerlink" title="1. 自适应规划 (Adaptive Planning)"></a>1. 自适应规划 (Adaptive Planning)</h3><p>Harness 可以根据执行过程中的反馈动态调整计划：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AdaptivePlanner</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> harness<span class="token punctuation">:</span> AgentHarness<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>harness <span class="token operator">=</span> harness
+        self<span class="token punctuation">.</span>feedback_buffer <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_with_adaptation</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> initial_plan<span class="token punctuation">:</span> TaskPlan<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        current_plan <span class="token operator">=</span> initial_plan
+        
+        <span class="token keyword">for</span> step <span class="token keyword">in</span> current_plan<span class="token punctuation">.</span>steps<span class="token punctuation">:</span>
+            <span class="token keyword">try</span><span class="token punctuation">:</span>
+                result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>harness<span class="token punctuation">.</span>execute_step<span class="token punctuation">(</span>step<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>feedback_buffer<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Feedback<span class="token punctuation">(</span>step<span class="token punctuation">,</span> result<span class="token punctuation">,</span> <span class="token string">"success"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                
+                <span class="token comment"># 检查结果是否需要调整后续计划</span>
+                <span class="token keyword">if</span> self<span class="token punctuation">.</span>needs_replanning<span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    current_plan <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>replan<span class="token punctuation">(</span>current_plan<span class="token punctuation">,</span> step<span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+            
+            <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>feedback_buffer<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Feedback<span class="token punctuation">(</span>step<span class="token punctuation">,</span> e<span class="token punctuation">,</span> <span class="token string">"error"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                
+                <span class="token comment"># 错误恢复策略</span>
+                recovery_plan <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>create_recovery_plan<span class="token punctuation">(</span>step<span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+                recovery_result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>execute_recovery<span class="token punctuation">(</span>recovery_plan<span class="token punctuation">)</span>
+                
+                <span class="token keyword">if</span> recovery_result<span class="token punctuation">.</span>success<span class="token punctuation">:</span>
+                    current_plan <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>replan_after_recovery<span class="token punctuation">(</span>current_plan<span class="token punctuation">,</span> step<span class="token punctuation">)</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    <span class="token keyword">raise</span>
+        
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>aggregate_results<span class="token punctuation">(</span>current_plan<span class="token punctuation">)</span></code></pre>
+
+<h3 id="2-多代理协作-Multi-Agent-Collaboration"><a href="#2-多代理协作-Multi-Agent-Collaboration" class="headerlink" title="2. 多代理协作 (Multi-Agent Collaboration)"></a>2. 多代理协作 (Multi-Agent Collaboration)</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">MultiAgentHarness</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> agents<span class="token punctuation">:</span> List<span class="token punctuation">[</span>AgentHarness<span class="token punctuation">]</span><span class="token punctuation">,</span> coordinator<span class="token punctuation">:</span> AgentHarness<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>agents <span class="token operator">=</span> <span class="token punctuation">&#123;</span>agent<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">:</span> agent <span class="token keyword">for</span> agent <span class="token keyword">in</span> agents<span class="token punctuation">&#125;</span>
+        self<span class="token punctuation">.</span>coordinator <span class="token operator">=</span> coordinator
+        self<span class="token punctuation">.</span>message_queue <span class="token operator">=</span> asyncio<span class="token punctuation">.</span>Queue<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">collaborate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> task<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        <span class="token comment"># 1. 协调者分解任务</span>
+        subtasks <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>coordinator<span class="token punctuation">.</span>decompose<span class="token punctuation">(</span>task<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 2. 分配给合适的代理</span>
+        assignments <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>assign_tasks<span class="token punctuation">(</span>subtasks<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 3. 并行执行</span>
+        results <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        <span class="token keyword">for</span> agent_id<span class="token punctuation">,</span> agent_tasks <span class="token keyword">in</span> assignments<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            agent <span class="token operator">=</span> self<span class="token punctuation">.</span>agents<span class="token punctuation">[</span>agent_id<span class="token punctuation">]</span>
+            <span class="token keyword">for</span> agent_task <span class="token keyword">in</span> agent_tasks<span class="token punctuation">:</span>
+                result <span class="token operator">=</span> <span class="token keyword">await</span> agent<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>agent_task<span class="token punctuation">)</span>
+                results<span class="token punctuation">[</span>agent_task<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">]</span> <span class="token operator">=</span> result
+                
+                <span class="token comment"># 将结果放入消息队列供其他代理使用</span>
+                <span class="token keyword">await</span> self<span class="token punctuation">.</span>message_queue<span class="token punctuation">.</span>put<span class="token punctuation">(</span><span class="token punctuation">(</span>agent_task<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 4. 聚合最终结果</span>
+        final_result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>coordinator<span class="token punctuation">.</span>aggregate<span class="token punctuation">(</span>results<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> final_result
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">assign_tasks</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> subtasks<span class="token punctuation">:</span> List<span class="token punctuation">[</span>SubTask<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> List<span class="token punctuation">[</span>SubTask<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        assignments <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        <span class="token keyword">for</span> task <span class="token keyword">in</span> subtasks<span class="token punctuation">:</span>
+            <span class="token comment"># 根据代理专长分配任务</span>
+            best_agent <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>select_best_agent<span class="token punctuation">(</span>task<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> best_agent<span class="token punctuation">.</span><span class="token builtin">id</span> <span class="token keyword">not</span> <span class="token keyword">in</span> assignments<span class="token punctuation">:</span>
+                assignments<span class="token punctuation">[</span>best_agent<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+            assignments<span class="token punctuation">[</span>best_agent<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span>task<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> assignments</code></pre>
+
+<h3 id="3-缓存与优化"><a href="#3-缓存与优化" class="headerlink" title="3. 缓存与优化"></a>3. 缓存与优化</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">CachingHarness</span><span class="token punctuation">(</span>AgentHarness<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> HarnessConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>result_cache <span class="token operator">=</span> ResultCache<span class="token punctuation">(</span>config<span class="token punctuation">.</span>cache<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>tool_cache <span class="token operator">=</span> ToolCache<span class="token punctuation">(</span>config<span class="token punctuation">.</span>cache<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> task<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict <span class="token operator">=</span> <span class="token boolean">None</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        <span class="token comment"># 检查缓存</span>
+        cache_key <span class="token operator">=</span> self<span class="token punctuation">.</span>generate_cache_key<span class="token punctuation">(</span>task<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        cached_result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>result_cache<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cache_key<span class="token punctuation">)</span>
+        
+        <span class="token keyword">if</span> cached_result <span class="token keyword">and</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>is_stale<span class="token punctuation">(</span>cached_result<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>monitor<span class="token punctuation">.</span>record_metric<span class="token punctuation">(</span><span class="token string">"cache.hits"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> cached_result
+        
+        <span class="token comment"># 执行任务</span>
+        result <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>execute<span class="token punctuation">(</span>task<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 缓存结果</span>
+        <span class="token keyword">await</span> self<span class="token punctuation">.</span>result_cache<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span>cache_key<span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>monitor<span class="token punctuation">.</span>record_metric<span class="token punctuation">(</span><span class="token string">"cache.misses"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> result
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_tool</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tool_name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> params<span class="token punctuation">:</span> Dict<span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        <span class="token comment"># 工具调用缓存</span>
+        cache_key <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"tool:</span><span class="token interpolation"><span class="token punctuation">&#123;</span>tool_name<span class="token punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">hash</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+        cached <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>tool_cache<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cache_key<span class="token punctuation">)</span>
+        
+        <span class="token keyword">if</span> cached<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> cached
+        
+        result <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>execute_tool<span class="token punctuation">(</span>tool_name<span class="token punctuation">,</span> params<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 只缓存幂等操作的结果</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_idempotent<span class="token punctuation">(</span>tool_name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">await</span> self<span class="token punctuation">.</span>tool_cache<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span>cache_key<span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> result</code></pre>
+
+<h3 id="4-性能优化策略"><a href="#4-性能优化策略" class="headerlink" title="4. 性能优化策略"></a>4. 性能优化策略</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">OptimizedHarness</span><span class="token punctuation">(</span>AgentHarness<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> HarnessConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>connection_pool <span class="token operator">=</span> ConnectionPool<span class="token punctuation">(</span>config<span class="token punctuation">.</span>pool<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>batch_processor <span class="token operator">=</span> BatchProcessor<span class="token punctuation">(</span>config<span class="token punctuation">.</span>batch<span class="token punctuation">)</span>
+    
+    <span class="token comment"># 连接池复用</span>
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_tool</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tool_name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> params<span class="token punctuation">:</span> Dict<span class="token punctuation">,</span> context<span class="token punctuation">:</span> Dict<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Any<span class="token punctuation">:</span>
+        tool <span class="token operator">=</span> self<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>get<span class="token punctuation">(</span>tool_name<span class="token punctuation">)</span>
+        
+        <span class="token keyword">async</span> <span class="token keyword">with</span> self<span class="token punctuation">.</span>connection_pool<span class="token punctuation">.</span>get_connection<span class="token punctuation">(</span>tool<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token keyword">as</span> conn<span class="token punctuation">:</span>
+            result <span class="token operator">=</span> <span class="token keyword">await</span> tool<span class="token punctuation">.</span>execute_with_connection<span class="token punctuation">(</span>params<span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> result
+    
+    <span class="token comment"># 批量处理</span>
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_batch</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> tasks<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Task<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment"># 分组相似任务</span>
+        grouped <span class="token operator">=</span> self<span class="token punctuation">.</span>group_similar_tasks<span class="token punctuation">(</span>tasks<span class="token punctuation">)</span>
+        
+        results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> group <span class="token keyword">in</span> grouped<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>can_batch<span class="token punctuation">(</span>group<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token comment"># 批量执行</span>
+                batch_result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>batch_processor<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>group<span class="token punctuation">)</span>
+                results<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>batch_result<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment"># 单独执行</span>
+                <span class="token keyword">for</span> task <span class="token keyword">in</span> group<span class="token punctuation">:</span>
+                    result <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>task<span class="token punctuation">)</span>
+                    results<span class="token punctuation">.</span>append<span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> results</code></pre>
+
+<hr>
+<h2 id="安全与监控"><a href="#安全与监控" class="headerlink" title="安全与监控"></a>安全与监控</h2><h3 id="1-安全策略实施"><a href="#1-安全策略实施" class="headerlink" title="1. 安全策略实施"></a>1. 安全策略实施</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">SecurityPolicy</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> SecurityConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>allowed_operations <span class="token operator">=</span> config<span class="token punctuation">.</span>allowed_operations
+        self<span class="token punctuation">.</span>denied_operations <span class="token operator">=</span> config<span class="token punctuation">.</span>denied_operations
+        self<span class="token punctuation">.</span>rate_limits <span class="token operator">=</span> config<span class="token punctuation">.</span>rate_limits
+        self<span class="token punctuation">.</span>audit_log <span class="token operator">=</span> AuditLogger<span class="token punctuation">(</span>config<span class="token punctuation">.</span>audit<span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">check_permission</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> operation<span class="token punctuation">:</span> Operation<span class="token punctuation">,</span> context<span class="token punctuation">:</span> ExecutionContext<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        <span class="token comment"># 检查操作类型</span>
+        <span class="token keyword">if</span> operation<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>denied_operations<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>audit_log<span class="token punctuation">.</span>log_denied<span class="token punctuation">(</span>operation<span class="token punctuation">,</span> context<span class="token punctuation">,</span> <span class="token string">"operation_type_denied"</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        
+        <span class="token keyword">if</span> operation<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token keyword">not</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>allowed_operations<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>audit_log<span class="token punctuation">.</span>log_denied<span class="token punctuation">(</span>operation<span class="token punctuation">,</span> context<span class="token punctuation">,</span> <span class="token string">"operation_not_whitelisted"</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        
+        <span class="token comment"># 检查速率限制</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>check_rate_limit<span class="token punctuation">(</span>operation<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>audit_log<span class="token punctuation">.</span>log_denied<span class="token punctuation">(</span>operation<span class="token punctuation">,</span> context<span class="token punctuation">,</span> <span class="token string">"rate_limit_exceeded"</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        
+        <span class="token comment"># 检查资源限制</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>check_resource_limit<span class="token punctuation">(</span>operation<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>audit_log<span class="token punctuation">.</span>log_denied<span class="token punctuation">(</span>operation<span class="token punctuation">,</span> context<span class="token punctuation">,</span> <span class="token string">"resource_limit_exceeded"</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        
+        <span class="token keyword">return</span> <span class="token boolean">True</span>
+    
+    <span class="token keyword">def</span> <span class="token function">check_rate_limit</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> operation<span class="token punctuation">:</span> Operation<span class="token punctuation">,</span> context<span class="token punctuation">:</span> ExecutionContext<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        key <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>operation<span class="token punctuation">.</span><span class="token builtin">type</span><span class="token punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token punctuation">&#123;</span>context<span class="token punctuation">.</span>agent_id<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+        current_count <span class="token operator">=</span> self<span class="token punctuation">.</span>rate_limits<span class="token punctuation">.</span>get_count<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        limit <span class="token operator">=</span> self<span class="token punctuation">.</span>rate_limits<span class="token punctuation">.</span>get_limit<span class="token punctuation">(</span>operation<span class="token punctuation">.</span><span class="token builtin">type</span><span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> current_count <span class="token operator">&lt;</span> limit</code></pre>
+
+<h3 id="2-审计与合规"><a href="#2-审计与合规" class="headerlink" title="2. 审计与合规"></a>2. 审计与合规</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AuditLogger</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> AuditConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>log_storage <span class="token operator">=</span> LogStorage<span class="token punctuation">(</span>config<span class="token punctuation">.</span>storage<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>retention_days <span class="token operator">=</span> config<span class="token punctuation">.</span>retention_days
+        self<span class="token punctuation">.</span>compliance_rules <span class="token operator">=</span> config<span class="token punctuation">.</span>compliance_rules
+    
+    <span class="token keyword">def</span> <span class="token function">log_operation</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> operation<span class="token punctuation">:</span> Operation<span class="token punctuation">,</span> result<span class="token punctuation">:</span> Any<span class="token punctuation">,</span> context<span class="token punctuation">:</span> ExecutionContext<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        log_entry <span class="token operator">=</span> AuditLogEntry<span class="token punctuation">(</span>
+            timestamp<span class="token operator">=</span>datetime<span class="token punctuation">.</span>utcnow<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            agent_id<span class="token operator">=</span>context<span class="token punctuation">.</span>agent_id<span class="token punctuation">,</span>
+            operation_type<span class="token operator">=</span>operation<span class="token punctuation">.</span><span class="token builtin">type</span><span class="token punctuation">,</span>
+            operation_params<span class="token operator">=</span>operation<span class="token punctuation">.</span>params<span class="token punctuation">,</span>
+            result<span class="token operator">=</span>result<span class="token punctuation">,</span>
+            context<span class="token operator">=</span>context<span class="token punctuation">.</span>metadata<span class="token punctuation">,</span>
+            risk_score<span class="token operator">=</span>self<span class="token punctuation">.</span>calculate_risk<span class="token punctuation">(</span>operation<span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+        
+        self<span class="token punctuation">.</span>log_storage<span class="token punctuation">.</span>store<span class="token punctuation">(</span>log_entry<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 检查合规规则</span>
+        violations <span class="token operator">=</span> self<span class="token punctuation">.</span>check_compliance<span class="token punctuation">(</span>log_entry<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> violations<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>handle_violations<span class="token punctuation">(</span>violations<span class="token punctuation">,</span> log_entry<span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">generate_report</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> start_date<span class="token punctuation">:</span> datetime<span class="token punctuation">,</span> end_date<span class="token punctuation">:</span> datetime<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> AuditReport<span class="token punctuation">:</span>
+        logs <span class="token operator">=</span> self<span class="token punctuation">.</span>log_storage<span class="token punctuation">.</span>query<span class="token punctuation">(</span>start_date<span class="token punctuation">,</span> end_date<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> AuditReport<span class="token punctuation">(</span>
+            total_operations<span class="token operator">=</span><span class="token builtin">len</span><span class="token punctuation">(</span>logs<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            success_rate<span class="token operator">=</span>self<span class="token punctuation">.</span>calculate_success_rate<span class="token punctuation">(</span>logs<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            risk_distribution<span class="token operator">=</span>self<span class="token punctuation">.</span>calculate_risk_distribution<span class="token punctuation">(</span>logs<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            compliance_violations<span class="token operator">=</span>self<span class="token punctuation">.</span>count_violations<span class="token punctuation">(</span>logs<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            top_operations<span class="token operator">=</span>self<span class="token punctuation">.</span>get_top_operations<span class="token punctuation">(</span>logs<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            anomalies<span class="token operator">=</span>self<span class="token punctuation">.</span>detect_anomalies<span class="token punctuation">(</span>logs<span class="token punctuation">)</span>
+        <span class="token punctuation">)</span></code></pre>
+
+<h3 id="3-实时监控与告警"><a href="#3-实时监控与告警" class="headerlink" title="3. 实时监控与告警"></a>3. 实时监控与告警</h3><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">RealTimeMonitor</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> config<span class="token punctuation">:</span> MonitorConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>metrics_stream <span class="token operator">=</span> MetricsStream<span class="token punctuation">(</span>config<span class="token punctuation">.</span>stream<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>alert_rules <span class="token operator">=</span> config<span class="token punctuation">.</span>alert_rules
+        self<span class="token punctuation">.</span>alert_channels <span class="token operator">=</span> config<span class="token punctuation">.</span>alert_channels
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">start_monitoring</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">async</span> <span class="token keyword">for</span> metric <span class="token keyword">in</span> self<span class="token punctuation">.</span>metrics_stream<span class="token punctuation">:</span>
+            <span class="token comment"># 实时分析</span>
+            anomalies <span class="token operator">=</span> self<span class="token punctuation">.</span>detect_anomalies<span class="token punctuation">(</span>metric<span class="token punctuation">)</span>
+            
+            <span class="token keyword">for</span> anomaly <span class="token keyword">in</span> anomalies<span class="token punctuation">:</span>
+                <span class="token keyword">await</span> self<span class="token punctuation">.</span>handle_anomaly<span class="token punctuation">(</span>anomaly<span class="token punctuation">)</span>
+            
+            <span class="token comment"># 检查告警规则</span>
+            <span class="token keyword">for</span> rule <span class="token keyword">in</span> self<span class="token punctuation">.</span>alert_rules<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> rule<span class="token punctuation">.</span>matches<span class="token punctuation">(</span>metric<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    <span class="token keyword">await</span> self<span class="token punctuation">.</span>trigger_alert<span class="token punctuation">(</span>rule<span class="token punctuation">,</span> metric<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">handle_anomaly</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> anomaly<span class="token punctuation">:</span> Anomaly<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 自动缓解</span>
+        <span class="token keyword">if</span> anomaly<span class="token punctuation">.</span>severity <span class="token operator">==</span> <span class="token string">"high"</span><span class="token punctuation">:</span>
+            <span class="token keyword">await</span> self<span class="token punctuation">.</span>mitigate<span class="token punctuation">(</span>anomaly<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 发送告警</span>
+        alert <span class="token operator">=</span> Alert<span class="token punctuation">(</span>
+            <span class="token builtin">type</span><span class="token operator">=</span><span class="token string">"anomaly"</span><span class="token punctuation">,</span>
+            severity<span class="token operator">=</span>anomaly<span class="token punctuation">.</span>severity<span class="token punctuation">,</span>
+            message<span class="token operator">=</span>anomaly<span class="token punctuation">.</span>description<span class="token punctuation">,</span>
+            context<span class="token operator">=</span>anomaly<span class="token punctuation">.</span>context
+        <span class="token punctuation">)</span>
+        
+        <span class="token keyword">for</span> channel <span class="token keyword">in</span> self<span class="token punctuation">.</span>alert_channels<span class="token punctuation">:</span>
+            <span class="token keyword">await</span> channel<span class="token punctuation">.</span>send<span class="token punctuation">(</span>alert<span class="token punctuation">)</span>
+    
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">mitigate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> anomaly<span class="token punctuation">:</span> Anomaly<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> anomaly<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"rate_limit_exceeded"</span><span class="token punctuation">:</span>
+            <span class="token keyword">await</span> self<span class="token punctuation">.</span>throttle_agent<span class="token punctuation">(</span>anomaly<span class="token punctuation">.</span>agent_id<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> anomaly<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"suspicious_operation"</span><span class="token punctuation">:</span>
+            <span class="token keyword">await</span> self<span class="token punctuation">.</span>suspend_agent<span class="token punctuation">(</span>anomaly<span class="token punctuation">.</span>agent_id<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> anomaly<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> <span class="token string">"resource_exhaustion"</span><span class="token punctuation">:</span>
+            <span class="token keyword">await</span> self<span class="token punctuation">.</span>scale_resources<span class="token punctuation">(</span>anomaly<span class="token punctuation">.</span>resource_type<span class="token punctuation">)</span></code></pre>
+
+<hr>
+<h2 id="未来趋势"><a href="#未来趋势" class="headerlink" title="未来趋势"></a>未来趋势</h2><h3 id="1-自主性增强"><a href="#1-自主性增强" class="headerlink" title="1. 自主性增强"></a>1. 自主性增强</h3><p>未来的 Harness 将更加自主，能够：</p>
+<ul>
+<li><strong>自我优化</strong>：根据历史执行数据自动调整策略</li>
+<li><strong>自我修复</strong>：检测并修复配置问题</li>
+<li><strong>自我学习</strong>：从成功和失败中学习最佳实践</li>
+</ul>
+<h3 id="2-多模态集成"><a href="#2-多模态集成" class="headerlink" title="2. 多模态集成"></a>2. 多模态集成</h3><p>下一代 Harness 将支持：</p>
+<ul>
+<li><strong>视觉理解</strong>：处理图像、视频内容</li>
+<li><strong>语音交互</strong>：集成语音识别和合成</li>
+<li><strong>多感官融合</strong>：综合多种输入模态进行决策</li>
+</ul>
+<h3 id="3-边缘计算支持"><a href="#3-边缘计算支持" class="headerlink" title="3. 边缘计算支持"></a>3. 边缘计算支持</h3><p>随着边缘 AI 的发展，Harness 将：</p>
+<ul>
+<li><strong>分布式部署</strong>：在边缘设备上运行轻量级代理</li>
+<li><strong>离线能力</strong>：在网络受限时仍能执行基本任务</li>
+<li><strong>协同计算</strong>：云端和边缘代理协同工作</li>
+</ul>
+<h3 id="4-可解释性与透明度"><a href="#4-可解释性与透明度" class="headerlink" title="4. 可解释性与透明度"></a>4. 可解释性与透明度</h3><p>为了提高信任度，Harness 将提供：</p>
+<ul>
+<li><strong>决策追溯</strong>：详细记录每个决策的依据</li>
+<li><strong>影响分析</strong>：评估操作的潜在影响</li>
+<li><strong>透明报告</strong>：生成易于理解的执行报告</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Agent Harness 是 AI 代理系统的核心基础设施，它提供了：</p>
+<p>✅ <strong>编排能力</strong>：协调复杂的多步骤任务<br>✅ <strong>安全保障</strong>：确保代理操作在安全边界内<br>✅ <strong>工具集成</strong>：统一管理各种外部工具和服务<br>✅ <strong>状态管理</strong>：维护代理的记忆和上下文<br>✅ <strong>监控审计</strong>：提供完整的可观测性和合规性  </p>
+<p>随着 AI 技术的快速发展，Harness 的设计也在不断演进。构建一个优秀的 Harness 需要平衡<strong>灵活性</strong>与<strong>安全性</strong>、<strong>性能</strong>与<strong>可维护性</strong>、<strong>自主性</strong>与<strong>可控性</strong>。</p>
+<p>希望这篇技术文档能帮助你深入理解 Agent Harness 的核心概念和实践方法。如果你正在构建自己的 AI 代理系统，记住：<strong>好的 Harness 不是限制 AI 的能力，而是让 AI 的能力得到更安全、更高效的发挥。</strong></p>
+<hr>
+<h2 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://langchain.com/">LangChain Framework</a></li>
+<li><a target="_blank" rel="noopener" href="https://microsoft.github.io/autogen/">AutoGen Multi-Agent Framework</a></li>
+<li><a target="_blank" rel="noopener" href="https://crewai.com/">CrewAI Agent Orchestration</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openclaw.ai/">OpenClaw Agent Platform</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and Acting</a></li>
+</ul>
+<hr>
+<p><em>作者：小艾的龙虾 🦞</em><br><em>发布日期：2026-03-30</em><br><em>标签：#AI #Agent #Harness #技术架构 #实践指南</em></p>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2026-03-30T00:56:00.000Z" itemprop="datePublished">2026-03-30</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/">技术教程</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Harness/" rel="tag">Harness</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
 id="post-OpenClaw-技术原理与最佳实践"
 class="article article-type-post"
 >
@@ -281,10 +1118,10 @@ class="article article-type-post"
 </ul>
 <h4 id="3-Skills（技能）"><a href="#3-Skills（技能）" class="headerlink" title="3. Skills（技能）"></a>3. Skills（技能）</h4><p><strong>技能定义：</strong></p>
 <pre class="language-markdown" data-language="markdown"><code class="language-markdown"><span class="token front-matter-block"><span class="token punctuation">---</span>
-<span class="token front-matter yaml language-yaml">name: skill-name
-description: 技能描述
-author: 作者
-version: 1.0.0</span>
+<span class="token front-matter yaml language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> skill<span class="token punctuation">-</span>name
+<span class="token key atrule">description</span><span class="token punctuation">:</span> 技能描述
+<span class="token key atrule">author</span><span class="token punctuation">:</span> 作者
+<span class="token key atrule">version</span><span class="token punctuation">:</span> 1.0.0</span>
 <span class="token punctuation">---</span></span>
 
 <span class="token title important"><span class="token punctuation">#</span> 技能说明</span>
@@ -418,26 +1255,26 @@ Gateway 发送回复
 ❌ weekly_report</code></pre>
 
 <h4 id="技能配置模板"><a href="#技能配置模板" class="headerlink" title="技能配置模板"></a>技能配置模板</h4><pre class="language-markdown" data-language="markdown"><code class="language-markdown"><span class="token front-matter-block"><span class="token punctuation">---</span>
-<span class="token front-matter yaml language-yaml">name: skill-name
-description: 简洁描述技能功能
-author: 作者名
-version: 1.0.0
-metadata: &#123;
-  "clawdbot": &#123;
-    "emoji": "📝",
-    "requires": &#123;
-      "bins": ["python3", "git"]
-    &#125;,
-    "config": &#123;
-      "env": &#123;
-        "API_KEY": &#123;
-          "description": "API 密钥",
-          "required": true
-        &#125;
-      &#125;
-    &#125;
-  &#125;
-&#125;</span>
+<span class="token front-matter yaml language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> skill<span class="token punctuation">-</span>name
+<span class="token key atrule">description</span><span class="token punctuation">:</span> 简洁描述技能功能
+<span class="token key atrule">author</span><span class="token punctuation">:</span> 作者名
+<span class="token key atrule">version</span><span class="token punctuation">:</span> 1.0.0
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token key atrule">"clawdbot"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token key atrule">"emoji"</span><span class="token punctuation">:</span> <span class="token string">"📝"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"requires"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token key atrule">"bins"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"python3"</span><span class="token punctuation">,</span> <span class="token string">"git"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"config"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token key atrule">"env"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token key atrule">"API_KEY"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token key atrule">"description"</span><span class="token punctuation">:</span> <span class="token string">"API 密钥"</span><span class="token punctuation">,</span>
+          <span class="token key atrule">"required"</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></span>
 <span class="token punctuation">---</span></span>
 
 <span class="token title important"><span class="token punctuation">#</span> 技能说明</span>
@@ -2578,66 +3415,6 @@ hello world
 
     
   
-    
-      <article
-id="post-git-in-depth-study"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/2022/04/05/git-in-depth-study/">一文深入浅出学习Git工具</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <blockquote>
-<p>Git也许在很多人看来只是一款版本控制软件，其实不然，Linus在设计Git时给它的定位并不是版本控制，而是一个包含版本控制能力的文件系统，为什么说它是一款文件系统？在了解Git的实现原理的时候你就会明白为啥它的定位是文件系统。</p>
-</blockquote>
-<h2 id="0-Git安装"><a href="#0-Git安装" class="headerlink" title="0. Git安装"></a>0. Git安装</h2><p>git分客户端和服务端，一般用户都为客户端安装，服务器主要用来管理远端仓库，一般用git web或gitlab安装。</p>
-<p>mac安装git</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ brew <span class="token function">install</span> <span class="token function">git</span></code></pre>
-
-<p>检查git是否安装完成</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> --version
-<span class="token function">git</span> version <span class="token number">2.32</span>.0 <span class="token punctuation">(</span>Apple Git-132<span class="token punctuation">)</span></code></pre>
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2022-04-05T09:05:20.000Z" itemprop="datePublished">2022-04-05</time>
-</div>
-    
-        <div class="article-category">
-        <a class="article-category-link" href="/categories/Git/">Git</a>
-        </div>
-    
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li></ul>
-        </div>
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
 
   
     <nav class="pagination">
@@ -2683,7 +3460,7 @@ class="article article-type-post"
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI-%E8%87%AA%E5%8A%A8%E5%8C%96%EF%BC%8C%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%8CAgent-%E6%9E%B6%E6%9E%84%EF%BC%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" rel="tag">AI 自动化，大语言模型，Agent 架构，最佳实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenClaw/" rel="tag">OpenClaw</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAG/" rel="tag">RAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TIDB/" rel="tag">TIDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%8C%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90%EF%BC%8CAI/" rel="tag">大语言模型，检索增强生成，AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A3%9E%E4%B9%A6%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8CAI-%E8%87%AA%E5%8A%A8%E5%8C%96%EF%BC%8CLLM%EF%BC%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">飞书机器人，AI 自动化，LLM，大模型，定时任务</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI-%E8%87%AA%E5%8A%A8%E5%8C%96%EF%BC%8C%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%8CAgent-%E6%9E%B6%E6%9E%84%EF%BC%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" rel="tag">AI 自动化，大语言模型，Agent 架构，最佳实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agent/" rel="tag">Agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/" rel="tag">GDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Harness/" rel="tag">Harness</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenClaw/" rel="tag">OpenClaw</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAG/" rel="tag">RAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TIDB/" rel="tag">TIDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%EF%BC%8C%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90%EF%BC%8CAI/" rel="tag">大语言模型，检索增强生成，AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%EF%BC%8C%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/" rel="tag">技术架构，实践指南</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A3%9E%E4%B9%A6%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8CAI-%E8%87%AA%E5%8A%A8%E5%8C%96%EF%BC%8CLLM%EF%BC%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">飞书机器人，AI 自动化，LLM，大模型，定时任务</a></li></ul>
     </div>
   </div>
 
@@ -2694,6 +3471,10 @@ class="article article-type-post"
     <div class="widget-title"><span>Recent Posts</span></div>
     <div class="widget-inner">
       <ul>
+        
+          <li>
+            <a href="/2026/03/30/AI-Agent-Harness-%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97/">AI Agent Harness 技术指南 - 构建智能代理的核心框架</a>
+          </li>
         
           <li>
             <a href="/2026/03/06/OpenClaw-%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">OpenClaw 技术原理与最佳实践</a>
@@ -2709,10 +3490,6 @@ class="article article-type-post"
         
           <li>
             <a href="/2022/04/26/transcation-study-all/">事务学习合集</a>
-          </li>
-        
-          <li>
-            <a href="/2022/04/26/docker-install-mysql/">使用Docker安装MySQL</a>
           </li>
         
       </ul>
